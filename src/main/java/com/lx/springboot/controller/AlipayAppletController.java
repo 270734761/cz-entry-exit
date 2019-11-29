@@ -67,6 +67,7 @@ public class AlipayAppletController {
         } catch (Exception e) {
             log.error("AlipayAppletController auth is error alipayAppletAuthRequest:" + JSONObject.toJSONString(alipayAppletAuthRequest), e);
         }
+        log.info("AlipayAppletController auth is response:" + JSONObject.toJSONString(response));
         if (null != response && response.isSuccess()) {
             log.info("AlipayAppletController auth is success alipayAppletAuthRequest:" + JSONObject.toJSONString(alipayAppletAuthRequest));
             EnhanceBeanUtils.copyProperties(response, alipayAppletAuthResponse);
