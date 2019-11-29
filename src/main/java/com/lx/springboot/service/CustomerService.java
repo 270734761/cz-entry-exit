@@ -2,8 +2,10 @@ package com.lx.springboot.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lx.springboot.entity.Customer;
+import com.lx.springboot.entity.UserInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -12,10 +14,9 @@ import java.util.List;
  */
 public interface CustomerService extends IService<Customer> {
 
-    /**
-     * 获取所有的会员信息
-     *
-     * @return
-     */
+    int addCustomer(Customer customer);
+
     List<Customer> getAllCustomer();
+
+    List<Customer> getCustomerByParams(Map<String,String> param);
 }

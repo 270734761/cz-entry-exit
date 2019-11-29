@@ -4,6 +4,7 @@ import com.lx.springboot.entity.Customer;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -12,10 +13,9 @@ import java.util.List;
  */
 public interface CustomerMapper extends BaseMapper<Customer> {
 
-    /**
-     * 获取所有的会员信息
-     *
-     * @return
-     */
     List<Customer> getAllCustomer();
+
+    int addCustomer(Customer customer);
+
+    List<Customer> getCustomerByParams(Map<String,String> param);
 }

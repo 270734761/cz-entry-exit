@@ -67,5 +67,9 @@ public class Customer implements Serializable {
      */
     private LocalDateTime updatedDate;
 
+    private String alipayId;
+
+    private String czSessionId;
+
 
 }
