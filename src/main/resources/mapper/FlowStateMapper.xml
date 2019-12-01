@@ -12,23 +12,24 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="is_valid" property="isValid" jdbcType="DECIMAL"/>
+        <result column="alipay_id" property="alipayId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="addFlowState" parameterType="com.lx.springboot.entity.FlowState" useGeneratedKeys="true" keyProperty="id">
         insert into flow_state (
-         id,user_info_id,title, note, state, create_time,update_time,is_valid
+         id,user_info_id,title, note, state, create_time,update_time,is_valid,alipay_id
         )
         values
         (
         #{id,jdbcType=DECIMAL},#{userInfoId,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
         #{note,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, now(),
-        now(), #{isValid,jdbcType=DECIMAL}
+        now(), #{isValid,jdbcType=DECIMAL},, #{alipayId,jdbcType=VARCHAR}
         )
     </insert>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-         id,user_info_id,title, note, state, create_time,update_time,is_valid
+         id,user_info_id,title, note, state, create_time,update_time,is_valid,alipay_id
     </sql>
 
     <select id="getFlowStateByParam" resultMap="BaseResultMap" parameterType="flowState">
@@ -46,6 +47,9 @@
     <sql id="selectFlowStateByParams_SQL">
         <if test="userInfoId != null" >
             AND user_info_id = #{userInfoId,jdbcType=DECIMAL}
+        </if>
+        <if test="alipayId != null" >
+            AND alipay_id = #{alipayId,jdbcType=VARCHAR}
         </if>
     </sql>
 </mapper>

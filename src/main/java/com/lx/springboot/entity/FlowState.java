@@ -25,6 +25,8 @@ public class FlowState implements Serializable {
 
     private String   state;//状态
 
+    private String alipayId;//支付宝id
+
     private Date createTime;
 
     private Date updateTime;
@@ -95,6 +97,14 @@ public class FlowState implements Serializable {
         this.userInfoId = userInfoId;
     }
 
+    public String getAlipayId() {
+        return alipayId;
+    }
+
+    public void setAlipayId(String alipayId) {
+        this.alipayId = alipayId;
+    }
+
     @Override
     public String toString() {
         return "FlowState{" +
@@ -103,6 +113,7 @@ public class FlowState implements Serializable {
                 ", title='" + title + '\'' +
                 ", note='" + note + '\'' +
                 ", state='" + state + '\'' +
+                ", alipayId='" + alipayId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", isValid=" + isValid +
