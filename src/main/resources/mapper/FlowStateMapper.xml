@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.springboot.mapper.FlowStateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="flowState">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="user_info_id" property="userInfoId" jdbcType="DECIMAL"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_valid" property="isValid" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <insert id="addFlowState" parameterType="com.lx.springboot.entity.FlowState" useGeneratedKeys="true" keyProperty="id">
+        insert into flow_state (
+         id,user_info_id,title, note, state, create_time,update_time,is_valid
+        )
+        values
+        (
+        #{id,jdbcType=DECIMAL},#{userInfoId,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
+        #{note,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, now(),
+        now(), #{isValid,jdbcType=DECIMAL}
+        )
+    </insert>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+         id,user_info_id,title, note, state, create_time,update_time,is_valid
+    </sql>
+
+    <select id="getFlowStateByParam" resultMap="BaseResultMap" parameterType="flowState">
+        select
+        <include refid="Base_Column_List"/>
+        from flow_state where is_valid=1
+        <include refid="selectFlowStateByParams_SQL"/>
+    </select>
+
+    <!--根据流转id删除流转状态信息-->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from flow_state where id = #{id}
+    </delete>
+
+    <sql id="selectFlowStateByParams_SQL">
+        <if test="userInfoId != null" >
+            AND user_info_id = #{userInfoId,jdbcType=DECIMAL}
+        </if>
+    </sql>
+</mapper>

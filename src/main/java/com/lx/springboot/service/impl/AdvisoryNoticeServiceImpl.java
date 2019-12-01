@@ -35,6 +35,10 @@ public class AdvisoryNoticeServiceImpl extends ServiceImpl<AdvisoryNoticeMapper,
     }
 
     @Override
+    public String getDetailById(Integer id) {
+        return baseMapper.getDetailById(id);
+    }
+    @Override
     public int deleteById(Long id) {
         return baseMapper.deleteById(id);
     }

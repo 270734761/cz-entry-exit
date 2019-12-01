@@ -62,13 +62,28 @@ public class AdvisoryNoticeController {
             advisoryNotice.setType(TypeEnum.NOTICE.getModelType());
             advisoryNoticeList = advisoryNoticeService.getAdvisoryNoticeByParam(advisoryNotice);
         }catch(Exception e){
-            log.error("AdvisoryNoticeController.getAdvisoryNoticeByParam is error userInfo:"+JSONObject.toJSONString(advisoryNotice),e);
+            log.error("AdvisoryNoticeController.getAdvisoryNoticeByParam is error advisoryNotice:"+JSONObject.toJSONString(advisoryNotice),e);
         }
         log.info("AdvisoryNoticeController.getAdvisoryNoticeByParam is success");
         return advisoryNoticeList;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = {"/deleteById"})
+    @RequestMapping(value = {"/getDetailById"})
+    @ResponseBody
+    public String getDetailById(Integer id){
+        JSONObject json=new JSONObject();
+        String contentDetail="";
+        try{
+            contentDetail = advisoryNoticeService.getDetailById(id);
+            json.put("contentDetail",contentDetail);
+        }catch(Exception e){
+            log.error("AdvisoryNoticeController.getDetailById is error id:"+id,e);
+        }
+        log.info("AdvisoryNoticeController.getDetailById is success");
+        return json.toJSONString();
+    }
+
+    @RequestMapping(value = {"/deleteById"})
     @ResponseBody
     public String deleteById(Long id){
         try{

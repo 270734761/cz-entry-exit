@@ -44,5 +44,22 @@ public class GuidWorkController {
         return noticeList;
     }
 
+    @RequestMapping(value = {"/getDetailById"})
+    @ResponseBody
+    public String getDetailById(Integer id){
+        log.info("AdvisoryNoticeController.getDetailById id:"+id);
+        JSONObject json=new JSONObject();
+        String contentDetail="";
+        try{
+            contentDetail = advisoryNoticeService.getDetailById(id);
+            json.put("contentDetail",contentDetail);
+        }catch(Exception e){
+            log.error("AdvisoryNoticeController.getDetailById is error id:"+id,e);
+        }
+        log.info("AdvisoryNoticeController.getDetailById is success");
+        return json.toJSONString();
+    }
+
+
 
 }

@@ -44,7 +44,7 @@
 
     <select id="getAdvisoryNoticeByParam" resultMap="BaseResultMap" parameterType="advisoryNotice">
         select
-        <include refid="Base_Column_List"/>
+        id,title
         from advisory_notice where is_valid=1
         <if test="type != null" >
             AND type = #{type,jdbcType=VARCHAR}
@@ -55,6 +55,15 @@
         </if>
 
     </select>
+
+    <select id="getDetailById" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select
+        content_detail
+        from advisory_notice where is_valid=1
+       and id=#{type,jdbcType=DECIMAL}
+
+    </select>
+
 
     <!--根据会员id删除申请人信息-->
     <delete id="deleteById" parameterType="java.lang.Long">
