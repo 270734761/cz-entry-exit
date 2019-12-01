@@ -29,9 +29,10 @@ public class GuidWorkController {
 
     @RequestMapping(value = {"/queryGuid"})
     @ResponseBody
-    public List<AdvisoryNotice> queryGuid(@RequestBody AdvisoryNotice advisoryNotice){
+    public List<AdvisoryNotice> queryGuid(){
         List<AdvisoryNotice> noticeList=new ArrayList<AdvisoryNotice>();
         try{
+            AdvisoryNotice advisoryNotice =new AdvisoryNotice();
             log.info("AdvisoryNoticeController queryNotice advisoryNotice:"+JSONObject.toJSONString(advisoryNotice));
             advisoryNotice.setStart(0);
             advisoryNotice.setEnd(5);

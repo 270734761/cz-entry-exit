@@ -37,7 +37,7 @@ public class AdvisoryNoticeController {
         return "success";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = {"/getAllAdvisoryNotice"})
+    @RequestMapping(value = {"/getAllAdvisoryNotice"})
     @ResponseBody
     public String getAllAdvisoryNotice(){
         List<AdvisoryNotice> advisoryNoticeList=null;
@@ -50,10 +50,11 @@ public class AdvisoryNoticeController {
         return JSONObject.toJSONString(advisoryNoticeList);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = {"/getAdvisoryNoticeByParam"})
+    @RequestMapping(value = {"/getAdvisoryNoticeByParam"})
     @ResponseBody
-    public List<AdvisoryNotice> getAdvisoryNoticeByParam(@RequestBody AdvisoryNotice advisoryNotice){
+    public List<AdvisoryNotice> getAdvisoryNoticeByParam(){
         List<AdvisoryNotice> advisoryNoticeList=null;
+        AdvisoryNotice advisoryNotice =new AdvisoryNotice();
         try{
             log.info("AdvisoryNoticeController.getAdvisoryNoticeByParam start advisoryNotice:"+JSONObject.toJSONString(advisoryNotice));
             advisoryNotice.setStart(0);
