@@ -95,4 +95,23 @@ public class AdvisoryNoticeController {
         return "success";
     }
 
+    @RequestMapping(value = {"/getReadingProtocol"})
+    @ResponseBody
+    public List<AdvisoryNotice> getReadingProtocol(){
+        List<AdvisoryNotice> advisoryNoticeList=null;
+        AdvisoryNotice advisoryNotice =new AdvisoryNotice();
+        try{
+            log.info("AdvisoryNoticeController.getReadingProtocol start");
+            advisoryNotice.setStart(0);
+            advisoryNotice.setEnd(5);
+            advisoryNotice.setType(TypeEnum.READINGPROTOCAL.getModelType());
+            advisoryNoticeList = advisoryNoticeService.getAdvisoryNoticeByParam(advisoryNotice);
+        }catch(Exception e){
+            log.error("AdvisoryNoticeController.getReadingProtocol is error advisoryNotice:"+JSONObject.toJSONString(advisoryNotice),e);
+        }
+        log.info("AdvisoryNoticeController.getReadingProtocol is success");
+        return advisoryNoticeList;
+    }
+
+
 }

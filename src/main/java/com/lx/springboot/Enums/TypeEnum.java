@@ -11,6 +11,8 @@ public enum TypeEnum {
      */
     NOTICE("notice", "咨询公告"),
     GUID("guid", "办事指引"),
+    READINGPROTOCAL("readingProtocal", "阅读协议"),
+
     ;
 
     private String modelType;
