@@ -23,6 +23,8 @@ public interface AdvisoryNoticeMapper extends BaseMapper<AdvisoryNotice> {
     List<AdvisoryNotice> getAllAdvisoryNotice();
 
     List<AdvisoryNotice> getAdvisoryNoticeByParam(AdvisoryNotice advisoryNotice);
+
+    String getReadingProtocalByParam(AdvisoryNotice advisoryNotice);
     String getDetailById(Integer id);
 
     int deleteById(Long id);

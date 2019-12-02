@@ -18,6 +18,8 @@ public interface AdvisoryNoticeService extends IService<AdvisoryNotice> {
 
     List<AdvisoryNotice> getAdvisoryNoticeByParam(AdvisoryNotice advisoryNotice);
 
+    String getReadingProtocalByParam(AdvisoryNotice advisoryNotice);
+
     String getDetailById(Integer id);
 
     int deleteById(Long id);

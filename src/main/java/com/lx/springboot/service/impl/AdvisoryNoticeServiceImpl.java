@@ -35,6 +35,11 @@ public class AdvisoryNoticeServiceImpl extends ServiceImpl<AdvisoryNoticeMapper,
     }
 
     @Override
+    public String getReadingProtocalByParam(AdvisoryNotice advisoryNotice) {
+        return baseMapper.getReadingProtocalByParam(advisoryNotice);
+    }
+
+    @Override
     public String getDetailById(Integer id) {
         return baseMapper.getDetailById(id);
     }

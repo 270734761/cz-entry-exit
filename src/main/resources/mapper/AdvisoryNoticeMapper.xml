@@ -56,6 +56,20 @@
 
     </select>
 
+    <select id="getReadingProtocalByParam" resultType="java.lang.String" parameterType="advisoryNotice">
+        select
+        content_detail
+        from advisory_notice where is_valid=1
+        <if test="type != null" >
+            AND type = #{type,jdbcType=VARCHAR}
+        </if>
+        order by create_time desc
+        <if test="start != null and end != null" >
+            limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+        </if>
+
+    </select>
+
     <select id="getDetailById" resultType="java.lang.String" parameterType="java.lang.Integer">
         select
         content_detail
