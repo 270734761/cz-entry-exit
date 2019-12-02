@@ -57,6 +57,8 @@ public class UserInfo implements Serializable {
 
     private String 	consigneeAdress;//'收件人地址'
 
+    private String flowState;//流转状态
+
     public Integer getId() {
         return id;
     }
@@ -225,6 +227,14 @@ public class UserInfo implements Serializable {
         this.alipayId = alipayId;
     }
 
+    public String getFlowState() {
+        return flowState;
+    }
+
+    public void setFlowState(String flowState) {
+        this.flowState = flowState;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -249,6 +259,7 @@ public class UserInfo implements Serializable {
                 ", consigneeName='" + consigneeName + '\'' +
                 ", consigneePhone='" + consigneePhone + '\'' +
                 ", consigneeAdress='" + consigneeAdress + '\'' +
+                ", flowState='" + flowState + '\'' +
                 '}';
     }
 }

@@ -25,12 +25,13 @@
         <result column="consignee_name" property="consigneeName" jdbcType="VARCHAR"/>
         <result column="consignee_phone" property="consigneePhone" jdbcType="VARCHAR"/>
         <result column="consignee_adress" property="consigneeAdress" jdbcType="VARCHAR"/>
+        <result column="flow_state" property="flowState" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="addUserInfo" parameterType="com.lx.springboot.entity.UserInfo" useGeneratedKeys="true" keyProperty="id">
         insert into user_info (
          id,alipay_id,namef, namel, namepinf, namepinl,gender, nation, phone, birthday, create_time,update_time,is_valid,id_type,id_no,
-        contact_name,contact_phone,pick_type,consignee_name,consignee_phone,consignee_adress
+        contact_name,contact_phone,pick_type,consignee_name,consignee_phone,consignee_adress,flow_state
         )
         values
         (
@@ -42,13 +43,14 @@
         #{pickType,jdbcType=VARCHAR},
         #{consigneeName,jdbcType=VARCHAR},
         #{consigneePhone,jdbcType=VARCHAR},
-        #{consigneeAdress,jdbcType=VARCHAR}
+        #{consigneeAdress,jdbcType=VARCHAR},
+        #{flowState,jdbcType=VARCHAR}
         )
     </insert>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, alipay_id,namef, namel, namepinf, gender, nation, phone, birthday, create_time,update_time,is_valid,id_type,id_no,contact_name,contact_phone,pick_type,consignee_name,consignee_phone,consignee_adress
+        id, alipay_id,namef, namel, namepinf, gender, nation, phone, birthday, create_time,update_time,is_valid,id_type,id_no,contact_name,contact_phone,pick_type,consignee_name,consignee_phone,consignee_adress,flow_state
     </sql>
 
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">

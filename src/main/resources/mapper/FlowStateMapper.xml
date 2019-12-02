@@ -23,7 +23,7 @@
         (
         #{id,jdbcType=DECIMAL},#{userInfoId,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
         #{note,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, now(),
-        now(), #{isValid,jdbcType=DECIMAL},, #{alipayId,jdbcType=VARCHAR}
+        now(), #{isValid,jdbcType=DECIMAL}, #{alipayId,jdbcType=VARCHAR}
         )
     </insert>
 

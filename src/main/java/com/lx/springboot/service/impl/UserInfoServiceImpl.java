@@ -1,9 +1,15 @@
 package com.lx.springboot.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lx.springboot.Enums.ApplyTypeEnum;
+import com.lx.springboot.Enums.FlowStateEnum;
+import com.lx.springboot.entity.FlowState;
 import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.mapper.UserInfoMapper;
+import com.lx.springboot.service.AdvisoryNoticeService;
+import com.lx.springboot.service.FlowStateService;
 import com.lx.springboot.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +22,22 @@ import java.util.List;
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
 
+    @Autowired
+    private FlowStateService flowStateService;
+
     @Override
     public int addUserInfo(UserInfo userInfo) {
-        return baseMapper.addUserInfo(userInfo);
+        userInfo.setFlowState(FlowStateEnum.SUBMITTED.getDesc());//已提交
+       baseMapper.addUserInfo(userInfo);
+        int userInfoId=userInfo.getId();
+        FlowState flowState=new FlowState();
+        flowState.setUserInfoId(userInfoId);
+        flowState.setAlipayId(userInfo.getAlipayId());
+        flowState.setTitle(ApplyTypeEnum.getDescByType(userInfo.getIdType()));
+        flowState.setState(FlowStateEnum.SUBMITTED.getDesc());
+        flowState.setIsValid(1);
+        flowStateService.addFlowState(flowState);
+        return userInfoId;
     }
 
     @Override
