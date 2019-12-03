@@ -28,7 +28,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Override
     public int addUserInfo(UserInfo userInfo) {
         userInfo.setFlowState(FlowStateEnum.SUBMITTED.getDesc());//已提交
-       baseMapper.addUserInfo(userInfo);
+        userInfo.setIsValid(1);
+        baseMapper.addUserInfo(userInfo);
         int userInfoId=userInfo.getId();
         FlowState flowState=new FlowState();
         flowState.setUserInfoId(userInfoId);

@@ -37,6 +37,7 @@
         <include refid="Base_Column_List"/>
         from flow_state where is_valid=1
         <include refid="selectFlowStateByParams_SQL"/>
+        order by create_time desc
     </select>
 
     <!--根据流转id删除流转状态信息-->
