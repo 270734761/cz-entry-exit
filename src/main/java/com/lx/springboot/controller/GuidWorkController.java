@@ -35,7 +35,7 @@ public class GuidWorkController {
             AdvisoryNotice advisoryNotice =new AdvisoryNotice();
             log.info("AdvisoryNoticeController queryNotice advisoryNotice:"+JSONObject.toJSONString(advisoryNotice));
             advisoryNotice.setStart(0);
-            advisoryNotice.setEnd(5);
+            advisoryNotice.setEnd(10);
             advisoryNotice.setType(TypeEnum.GUID.getModelType());
             noticeList=advisoryNoticeService.getAdvisoryNoticeByParam(advisoryNotice);
         }catch(Exception e){

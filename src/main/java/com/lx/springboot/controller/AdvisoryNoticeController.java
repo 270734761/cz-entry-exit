@@ -109,7 +109,7 @@ public class AdvisoryNoticeController {
         try{
             log.info("AdvisoryNoticeController.getReadingProtocol start");
             advisoryNotice.setStart(0);
-            advisoryNotice.setEnd(5);
+            advisoryNotice.setEnd(2);
             advisoryNotice.setType(TypeEnum.READINGPROTOCAL.getModelType());
             readingProtocal = advisoryNoticeService.getReadingProtocalByParam(advisoryNotice);
             json.put("readingProtocal",readingProtocal);
