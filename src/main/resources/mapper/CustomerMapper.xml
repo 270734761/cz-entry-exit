@@ -55,11 +55,14 @@
     </delete>
 
     <sql id="selectCustomerByParams_SQL">
-        <if test="alipayId != null" >
-            AND alipay_id = #{alipayId,jdbcType=VARCHAR}
-        </if>
-        <if test="czSessionId != null" >
-            AND cz_session_id = #{czSessionId,jdbcType=VARCHAR}
-        </if>
+        <where>
+            <if test="alipayId != null" >
+                AND alipay_id = #{alipayId,jdbcType=VARCHAR}
+            </if>
+            <if test="czSessionId != null" >
+                AND cz_session_id = #{czSessionId,jdbcType=VARCHAR}
+            </if>
+
+        </where>
     </sql>
 </mapper>
