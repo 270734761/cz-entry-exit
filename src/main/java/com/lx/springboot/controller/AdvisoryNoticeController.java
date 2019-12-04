@@ -2,10 +2,15 @@ package com.lx.springboot.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lx.springboot.Enums.TypeEnum;
 import com.lx.springboot.entity.AdvisoryNotice;
 import com.lx.springboot.entity.UserInfo;
+import com.lx.springboot.query.AdvisoryNoticeQuery;
 import com.lx.springboot.service.AdvisoryNoticeService;
+import com.lx.springboot.utils.TableUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +19,7 @@ import java.util.List;
 
 /**
  * <p>
- * 申请人 前端控制器
+ * 咨询公告 前端控制器
  * </p>
  */
 @Slf4j
@@ -114,6 +119,23 @@ public class AdvisoryNoticeController {
         log.info("AdvisoryNoticeController.getReadingProtocol is success");
         return json.toJSONString();
     }
-
+    @RequestMapping(value = {"/getAdvisoryNoticeList"})
+    @ResponseBody
+    public TableUtils<List<AdvisoryNotice>> getAdvisoryNoticeList(@RequestBody AdvisoryNoticeQuery advisoryNoticeQuery){
+        List<AdvisoryNotice> advisoryNoticeList=null;
+        try{
+            log.info("AdvisoryNoticeController.addAdvisoryNotice start");
+            //获取第1页，10条内容，默认查询总数count
+            Page page = PageHelper.startPage(advisoryNoticeQuery.getPage(), advisoryNoticeQuery.getLimit());
+            //紧跟着的第一个select方法会被分页
+            advisoryNoticeList = advisoryNoticeService.getAllAdvisoryNotice();
+            //用PageInfo对结果进行包装
+            PageInfo pageInfo = new PageInfo(page.getResult());
+            return new TableUtils(pageInfo.getTotal(), advisoryNoticeList);
+        }catch(Exception e){
+            log.error("AdvisoryNoticeController.addAdvisoryNotice is error",e);
+            return new TableUtils();
+        }
+    }
 
 }

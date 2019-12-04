@@ -21,8 +21,11 @@ import com.lx.springboot.utils.EnhanceBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -78,11 +81,19 @@ public class AlipayAppletController {
             log.info("AlipayAppletController auth is success alipayAppletAuthRequest:" + JSONObject.toJSONString(alipayAppletAuthRequest));
             EnhanceBeanUtils.copyProperties(response, alipayAppletAuthResponse);
             alipayAppletAuthResponse.setSuccess(true);
-            String sseionId = UUID.randomUUID().toString();
-            Customer customer=new Customer();
-            customer.setAlipayId(alipayAppletAuthResponse.getUserId());
-            customer.setCzSessionId(sseionId);
-            customerService.addCustomer(customer);
+            String userId=alipayAppletAuthResponse.getUserId();
+            Map<String,String> param=new HashMap<String,String>();
+            param.put("alipayId",userId);
+            List<Customer> customerList= customerService.getCustomerByParams(param);
+            if(CollectionUtils.isEmpty(customerList)){
+                String sseionId = UUID.randomUUID().toString();
+                Customer customer=new Customer();
+                customer.setAlipayId(userId);
+                customer.setCzSessionId(sseionId);
+                customerService.addCustomer(customer);
+            }else{
+                log.info("AlipayAppletController auth Customer is create userId:" + userId);
+            }
         } else {
             alipayAppletAuthResponse.setSuccess(false);
             log.info("AlipayAppletController auth is fail alipayAppletAuthRequest:" + JSONObject.toJSONString(alipayAppletAuthRequest));
