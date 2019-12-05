@@ -23,7 +23,9 @@ public class FlowStateVo implements Serializable {
 
     private String   note ;//备注
 
-    private String   state;//状态
+    private Integer   flowState;//状态
+
+    private String   flowStateDesc;//状态描述
 
     private String alipayId;//支付宝id
 
@@ -55,14 +57,6 @@ public class FlowStateVo implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public Date getCreateTime() {
@@ -105,6 +99,22 @@ public class FlowStateVo implements Serializable {
         this.alipayId = alipayId;
     }
 
+    public Integer getFlowState() {
+        return flowState;
+    }
+
+    public void setFlowState(Integer flowState) {
+        this.flowState = flowState;
+    }
+
+    public String getFlowStateDesc() {
+        return flowStateDesc;
+    }
+
+    public void setFlowStateDesc(String flowStateDesc) {
+        this.flowStateDesc = flowStateDesc;
+    }
+
     @Override
     public String toString() {
         return "FlowState{" +
@@ -112,7 +122,8 @@ public class FlowStateVo implements Serializable {
                 ", userInfoId=" + userInfoId +
                 ", title='" + title + '\'' +
                 ", note='" + note + '\'' +
-                ", state='" + state + '\'' +
+                ", flowState='" + flowState + '\'' +
+                ", flowStateDesc='" + flowStateDesc + '\'' +
                 ", alipayId='" + alipayId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

@@ -30,6 +30,11 @@ public class FlowStateServiceImpl extends ServiceImpl<FlowStateMapper, FlowState
     }
 
     @Override
+    public List<FlowState> queryFlowStateDetail(Integer userInfoId) {
+        return baseMapper.queryFlowStateDetail(userInfoId);
+    }
+
+    @Override
     public int deleteById(Long id) {
         return baseMapper.deleteById(id);
     }

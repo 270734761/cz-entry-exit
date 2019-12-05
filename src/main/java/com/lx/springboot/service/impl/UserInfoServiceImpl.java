@@ -67,17 +67,20 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     public void addFlowState(UserInfo userInfo){
+        int i=1;
         for (FlowStateEnum value : FlowStateEnum.values()) {
             FlowState flowState=new FlowState();
             flowState.setUserInfoId(userInfo.getId());
             flowState.setAlipayId(userInfo.getAlipayId());
             flowState.setTitle(ApplyTypeEnum.getDescByType(userInfo.getIdType()));
-            flowState.setState(value.getDesc());
+            flowState.setFlowStateDesc(value.getDesc());
+            flowState.setFlowState(i);
             if("submitted".equals(value.getModelType())){
                 flowState.setIsValid(1);
             }else{
                 flowState.setIsValid(0);
             }
+            i++;
             flowStateService.addFlowState(flowState);
         }
     }

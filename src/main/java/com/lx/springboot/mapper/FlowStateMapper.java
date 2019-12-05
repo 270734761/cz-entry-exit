@@ -17,5 +17,7 @@ public interface FlowStateMapper extends BaseMapper<FlowState> {
 
     List<FlowState> getFlowStateByParam(FlowState flowState);
 
+    List<FlowState> queryFlowStateDetail(Integer userInfoId);
+
     int deleteById(Long id);
 }
