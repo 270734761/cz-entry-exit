@@ -18,6 +18,7 @@ import com.lx.springboot.response.AlipayAppletAuthResponse;
 import com.lx.springboot.service.CustomerService;
 import com.lx.springboot.service.UserInfoService;
 import com.lx.springboot.utils.EnhanceBeanUtils;
+import com.lx.springboot.vo.CustomerVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,12 +85,13 @@ public class AlipayAppletController {
             String userId=alipayAppletAuthResponse.getUserId();
             Map<String,String> param=new HashMap<String,String>();
             param.put("alipayId",userId);
-            List<Customer> customerList= customerService.getCustomerByParams(param);
+            List<CustomerVo> customerList= customerService.getCustomerByParams(param);
             if(CollectionUtils.isEmpty(customerList)){
                 String sseionId = UUID.randomUUID().toString();
-                Customer customer=new Customer();
+                CustomerVo customer=new CustomerVo();
                 customer.setAlipayId(userId);
                 customer.setCzSessionId(sseionId);
+                customer.setStatus("1");
                 customerService.addCustomer(customer);
             }else{
                 log.info("AlipayAppletController auth Customer is create userId:" + userId);

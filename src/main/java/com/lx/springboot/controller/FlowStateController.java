@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -40,51 +42,54 @@ public class FlowStateController {
 
     @RequestMapping(value = {"/queryFlowStateList"})
     @ResponseBody
-    public List<FlowStateVo> queryFlowStateList(String alipayId){
-        log.info("FlowStateController.queryFlowStateList alipayId:"+alipayId);
-        List<FlowStateVo> flowStateVoList=new ArrayList<FlowStateVo>();
-        try{
-            UserInfo userInfo=new UserInfo();
+    public List<FlowStateVo> queryFlowStateList(String alipayId) {
+        log.info("FlowStateController.queryFlowStateList alipayId:" + alipayId);
+        List<FlowStateVo> flowStateVoList = new ArrayList<FlowStateVo>();
+        try {
+            UserInfo userInfo = new UserInfo();
             userInfo.setAlipayId(alipayId);
-            List<UserInfo> userInfoList=userInfoService.getUserInfoByParam(userInfo);
-            if(CollectionUtils.isNotEmpty(userInfoList)){
-                for(UserInfo user:userInfoList){
-                    FlowState flowState=new FlowState();
+            List<UserInfo> userInfoList = userInfoService.getUserInfoByParam(userInfo);
+            if (CollectionUtils.isNotEmpty(userInfoList)) {
+                for (UserInfo user : userInfoList) {
+                    FlowState flowState = new FlowState();
                     flowState.setUserInfoId(user.getId());
-                    List<FlowState> flowStateList=flowStateService.getFlowStateByParam(flowState);
-                    if(CollectionUtils.isNotEmpty(flowStateList)){
-                        FlowState flow=flowStateList.get(0);
-                        FlowStateVo flowStateVo=new FlowStateVo();
-                        EnhanceBeanUtils.copyProperties(flow,flowStateVo);
+                    List<FlowState> flowStateList = flowStateService.getFlowStateByParam(flowState);
+                    if (CollectionUtils.isNotEmpty(flowStateList)) {
+                        FlowState flow = flowStateList.get(0);
+                        FlowStateVo flowStateVo = new FlowStateVo();
+                        EnhanceBeanUtils.copyProperties(flow, flowStateVo);
                         flowStateVoList.add(flowStateVo);
                     }
                 }
             }
-        }catch(Exception e){
-            log.error("FlowStateController.queryFlowStateList is error alipayId:"+alipayId,e);
+        } catch (Exception e) {
+            log.error("FlowStateController.queryFlowStateList is error alipayId:" + alipayId, e);
         }
         return flowStateVoList;
     }
 
     @RequestMapping(value = {"/queryFlowStateDetail"})
     @ResponseBody
-    public List<FlowStateVo> queryFlowStateDetail(Integer userInfoId) {
+    public Map<String, Object> queryFlowStateDetail(Integer userInfoId) {
         log.info("FlowStateController.queryFlowStateDetail userInfoId:" + userInfoId);
+        Map<String, Object> map = new HashMap<String, Object>();
         List<FlowStateVo> flowStateVoList = new ArrayList<FlowStateVo>();
+        int flowStateTep = 0;
         try {
-            FlowState flowState = new FlowState();
-            flowState.setUserInfoId(userInfoId);
-            List<FlowState> flowStateList = flowStateService.getFlowStateByParam(flowState);
+            List<FlowState> flowStateList = flowStateService.queryFlowStateDetail(userInfoId);
             if (CollectionUtils.isNotEmpty(flowStateList)) {
                 for (FlowState flow : flowStateList) {
                     FlowStateVo flowStateVo = new FlowStateVo();
                     EnhanceBeanUtils.copyProperties(flow, flowStateVo);
                     flowStateVoList.add(flowStateVo);
                 }
+                flowStateTep = flowStateList.get(flowStateList.size() - 1).getFlowState();
             }
         } catch (Exception e) {
             log.error("FlowStateController.queryFlowStateDetail is error userInfoId:" + userInfoId, e);
         }
-        return flowStateVoList;
+        map.put("flowStateVoList", flowStateVoList);
+        map.put("flowStateTep", flowStateTep);
+        return map;
     }
 }

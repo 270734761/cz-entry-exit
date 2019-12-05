@@ -8,7 +8,8 @@
         <result column="user_info_id" property="userInfoId" jdbcType="DECIMAL"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="note" property="note" jdbcType="VARCHAR"/>
-        <result column="state" property="state" jdbcType="VARCHAR"/>
+        <result column="flow_state" property="flowState" jdbcType="DECIMAL"/>
+        <result column="flow_state_desc" property="flowStateDesc" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="is_valid" property="isValid" jdbcType="DECIMAL"/>
@@ -17,19 +18,19 @@
 
     <insert id="addFlowState" parameterType="com.lx.springboot.entity.FlowState" useGeneratedKeys="true" keyProperty="id">
         insert into flow_state (
-         id,user_info_id,title, note, state, create_time,update_time,is_valid,alipay_id
+         id,user_info_id,title, note, flow_state,flow_state_desc, create_time,update_time,is_valid,alipay_id
         )
         values
         (
         #{id,jdbcType=DECIMAL},#{userInfoId,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
-        #{note,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, now(),
+        #{note,jdbcType=VARCHAR}, #{flowState,jdbcType=DECIMAL},#{flowStateDesc,jdbcType=VARCHAR}, now(),
         now(), #{isValid,jdbcType=DECIMAL}, #{alipayId,jdbcType=VARCHAR}
         )
     </insert>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-         id,user_info_id,title, note, state, create_time,update_time,is_valid,alipay_id
+         id,user_info_id,title, note, flow_state,flow_state_desc, create_time,update_time,is_valid,alipay_id
     </sql>
 
     <select id="getFlowStateByParam" resultMap="BaseResultMap" parameterType="flowState">
@@ -37,7 +38,15 @@
         <include refid="Base_Column_List"/>
         from flow_state where is_valid=1
         <include refid="selectFlowStateByParams_SQL"/>
-        order by create_time desc
+        order by flow_state desc
+    </select>
+
+    <select id="queryFlowStateDetail" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from flow_state where is_valid=1
+        AND user_info_id = #{userInfoId,jdbcType=DECIMAL}
+        order by flow_state asc
     </select>
 
     <!--根据流转id删除流转状态信息-->

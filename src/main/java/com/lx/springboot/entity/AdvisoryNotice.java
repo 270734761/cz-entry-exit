@@ -33,6 +33,8 @@ public class AdvisoryNotice implements Serializable {
 
     private Integer   end ;
 
+    private Integer   topSort ;//置顶排序
+
     public Integer getId() {
         return id;
     }
@@ -105,6 +107,14 @@ public class AdvisoryNotice implements Serializable {
         this.type = type;
     }
 
+    public Integer getTopSort() {
+        return topSort;
+    }
+
+    public void setTopSort(Integer topSort) {
+        this.topSort = topSort;
+    }
+
     @Override
     public String toString() {
         return "AdvisoryNotice{" +
@@ -117,6 +127,7 @@ public class AdvisoryNotice implements Serializable {
                 ", isValid=" + isValid +
                 ", start=" + start +
                 ", end=" + end +
+                ", topSort=" + topSort +
                 '}';
     }
 }

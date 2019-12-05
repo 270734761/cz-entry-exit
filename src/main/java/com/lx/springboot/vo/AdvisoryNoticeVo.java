@@ -5,10 +5,10 @@ import java.util.Date;
 
 /**
  * <p>
- * 流转状态信息
+ * 咨询公告信息
  * </p>
  */
-public class FlowStateVo implements Serializable {
+public class AdvisoryNoticeVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,23 +17,23 @@ public class FlowStateVo implements Serializable {
      */
     private Integer   id ;
 
-    private Integer userInfoId;//申请单表主键
+    private String title;//标题
 
-    private String   title ;//标题
+    private String   contentDetail ;// 详细内容
 
-    private String   note ;//备注
-
-    private Integer   flowState;//状态
-
-    private String   flowStateDesc;//状态描述
-
-    private String alipayId;//支付宝id
+    private String   type ;// 类型
 
     private Date createTime;
 
     private Date updateTime;
 
     private Integer   isValid ;// '是否有效1：有效 0：无效',
+
+    private Integer   start ;
+
+    private Integer   end ;
+
+    private Integer   topSort ;//置顶排序
 
     public Integer getId() {
         return id;
@@ -51,12 +51,12 @@ public class FlowStateVo implements Serializable {
         this.title = title;
     }
 
-    public String getNote() {
-        return note;
+    public String getContentDetail() {
+        return contentDetail;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setContentDetail(String contentDetail) {
+        this.contentDetail = contentDetail;
     }
 
     public Date getCreateTime() {
@@ -83,51 +83,51 @@ public class FlowStateVo implements Serializable {
         this.isValid = isValid;
     }
 
-    public Integer getUserInfoId() {
-        return userInfoId;
+    public Integer getStart() {
+        return start;
     }
 
-    public void setUserInfoId(Integer userInfoId) {
-        this.userInfoId = userInfoId;
+    public void setStart(Integer start) {
+        this.start = start;
     }
 
-    public String getAlipayId() {
-        return alipayId;
+    public Integer getEnd() {
+        return end;
     }
 
-    public void setAlipayId(String alipayId) {
-        this.alipayId = alipayId;
+    public void setEnd(Integer end) {
+        this.end = end;
     }
 
-    public Integer getFlowState() {
-        return flowState;
+    public String getType() {
+        return type;
     }
 
-    public void setFlowState(Integer flowState) {
-        this.flowState = flowState;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getFlowStateDesc() {
-        return flowStateDesc;
+    public Integer getTopSort() {
+        return topSort;
     }
 
-    public void setFlowStateDesc(String flowStateDesc) {
-        this.flowStateDesc = flowStateDesc;
+    public void setTopSort(Integer topSort) {
+        this.topSort = topSort;
     }
 
     @Override
     public String toString() {
-        return "FlowState{" +
+        return "AdvisoryNoticeVo{" +
                 "id=" + id +
-                ", userInfoId=" + userInfoId +
                 ", title='" + title + '\'' +
-                ", note='" + note + '\'' +
-                ", flowState='" + flowState + '\'' +
-                ", flowStateDesc='" + flowStateDesc + '\'' +
-                ", alipayId='" + alipayId + '\'' +
+                ", contentDetail='" + contentDetail + '\'' +
+                ", type='" + type + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", isValid=" + isValid +
+                ", start=" + start +
+                ", end=" + end +
+                ", topSort=" + topSort +
                 '}';
     }
 }

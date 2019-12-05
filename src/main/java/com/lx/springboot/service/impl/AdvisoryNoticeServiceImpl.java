@@ -30,6 +30,12 @@ public class AdvisoryNoticeServiceImpl extends ServiceImpl<AdvisoryNoticeMapper,
     }
 
     @Override
+    public List<AdvisoryNotice> getAdvisoryNoticePageByparam(AdvisoryNotice advisoryNotice) {
+        return baseMapper.getAdvisoryNoticePageByparam(advisoryNotice);
+    }
+
+
+    @Override
     public List<AdvisoryNotice> getAdvisoryNoticeByParam(AdvisoryNotice advisoryNotice) {
         return baseMapper.getAdvisoryNoticeByParam(advisoryNotice);
     }

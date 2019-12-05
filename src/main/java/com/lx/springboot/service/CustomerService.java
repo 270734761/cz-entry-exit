@@ -3,6 +3,7 @@ package com.lx.springboot.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lx.springboot.entity.Customer;
 import com.lx.springboot.entity.UserInfo;
+import com.lx.springboot.vo.CustomerVo;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,12 @@ import java.util.Map;
  */
 public interface CustomerService extends IService<Customer> {
 
-    int addCustomer(Customer customer);
+    int addCustomer(CustomerVo customerVo);
 
-    List<Customer> getAllCustomer();
+    int updateCustomer(CustomerVo customerVo);
 
-    List<Customer> getCustomerByParams(Map<String,String> param);
+
+    List<CustomerVo> getAllCustomer();
+
+    List<CustomerVo> getCustomerByParams(Map<String,String> param);
 }

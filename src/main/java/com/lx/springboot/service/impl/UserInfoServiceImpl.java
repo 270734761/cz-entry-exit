@@ -7,12 +7,18 @@ import com.lx.springboot.entity.FlowState;
 import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.mapper.UserInfoMapper;
 import com.lx.springboot.service.AdvisoryNoticeService;
+import com.lx.springboot.service.CustomerService;
 import com.lx.springboot.service.FlowStateService;
 import com.lx.springboot.service.UserInfoService;
+import com.lx.springboot.vo.CustomerVo;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -24,6 +30,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Autowired
     private FlowStateService flowStateService;
+    @Autowired
+    private CustomerService customerService;
 
     @Override
     public int addUserInfo(UserInfo userInfo) {
@@ -31,14 +39,50 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfo.setIsValid(1);
         baseMapper.addUserInfo(userInfo);
         int userInfoId=userInfo.getId();
-        FlowState flowState=new FlowState();
-        flowState.setUserInfoId(userInfoId);
-        flowState.setAlipayId(userInfo.getAlipayId());
-        flowState.setTitle(ApplyTypeEnum.getDescByType(userInfo.getIdType()));
-        flowState.setState(FlowStateEnum.SUBMITTED.getDesc());
-        flowState.setIsValid(1);
-        flowStateService.addFlowState(flowState);
+        //创建办件流转信息
+        addFlowState(userInfo);
+        //更新会员信息
+        updateCustomer(userInfo);
         return userInfoId;
+    }
+
+    public int updateCustomer(UserInfo userInfo){
+        Map<String,String> param=new HashMap<String,String>();
+        param.put("alipayId",userInfo.getAlipayId());
+        List<CustomerVo> customerList= customerService.getCustomerByParams(param);
+        if(CollectionUtils.isNotEmpty(customerList)){
+            CustomerVo customerVo=new CustomerVo();
+            customerVo.setCustomerName(userInfo.getNamef()+userInfo.getNamel());
+            String namePinyin=userInfo.getNamepinf()+" "+userInfo.getNamepinl();
+            if(StringUtils.isNotEmpty(namePinyin)){
+                customerVo.setNamePinyin(namePinyin.toUpperCase());
+            }
+            customerVo.setContactName(userInfo.getContactName());
+            customerVo.setContactPhone(userInfo.getContactPhone());
+            customerVo.setMailAddress(userInfo.getConsigneeAdress());
+            customerVo.setAlipayId(userInfo.getAlipayId());
+            return customerService.updateCustomer(customerVo);
+        }
+        return 1;
+    }
+
+    public void addFlowState(UserInfo userInfo){
+        int i=1;
+        for (FlowStateEnum value : FlowStateEnum.values()) {
+            FlowState flowState=new FlowState();
+            flowState.setUserInfoId(userInfo.getId());
+            flowState.setAlipayId(userInfo.getAlipayId());
+            flowState.setTitle(ApplyTypeEnum.getDescByType(userInfo.getIdType()));
+            flowState.setFlowStateDesc(value.getDesc());
+            flowState.setFlowState(i);
+            if("submitted".equals(value.getModelType())){
+                flowState.setIsValid(1);
+            }else{
+                flowState.setIsValid(0);
+            }
+            i++;
+            flowStateService.addFlowState(flowState);
+        }
     }
 
     @Override
