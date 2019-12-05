@@ -45,8 +45,10 @@
     </select>
 
     <select id="getCustomerByParams" resultType="Customer" parameterType="customer">
-         select * from customer where
+         select * from customer
+        <where>
          <include refid="selectCustomerByParams_SQL"/>
+        </where>
     </select>
 
     <!--根据会员id删除会员信息-->
