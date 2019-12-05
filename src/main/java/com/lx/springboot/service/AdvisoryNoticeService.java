@@ -22,5 +22,7 @@ public interface AdvisoryNoticeService extends IService<AdvisoryNotice> {
 
     String getDetailById(Integer id);
 
+    List<AdvisoryNotice> getAdvisoryNoticePageByparam(AdvisoryNotice advisoryNotice);
+
     int deleteById(Long id);
 }

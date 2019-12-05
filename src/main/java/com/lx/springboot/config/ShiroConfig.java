@@ -49,6 +49,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**/guidWork/**", "anon");// 获取办事指引匿名访问
         filterChainDefinitionMap.put("/**/alipayApplet/**", "anon");// 授权和获取手机号匿名访问
         filterChainDefinitionMap.put("/**/flowState/**", "anon");// 流转状态匿名访问
+        filterChainDefinitionMap.put("/**/customer/**", "anon");// 用户列表匿名访问
         filterChainDefinitionMap.put("/static/**", "anon"); // 静态资源匿名访问
         filterChainDefinitionMap.put("/bootstrap/**", "anon"); // 静态资源匿名访问
         filterChainDefinitionMap.put("/css/**", "anon"); // 静态资源匿名访问

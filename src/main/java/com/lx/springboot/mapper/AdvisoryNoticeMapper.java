@@ -15,12 +15,9 @@ public interface AdvisoryNoticeMapper extends BaseMapper<AdvisoryNotice> {
 
     int addAdvisoryNotice(AdvisoryNotice advisoryNotice);
 
-    /**
-     * 获取所有的申请人信息
-     *
-     * @return
-     */
     List<AdvisoryNotice> getAllAdvisoryNotice();
+
+    List<AdvisoryNotice> getAdvisoryNoticePageByparam(AdvisoryNotice advisoryNotice);
 
     List<AdvisoryNotice> getAdvisoryNoticeByParam(AdvisoryNotice advisoryNotice);
 

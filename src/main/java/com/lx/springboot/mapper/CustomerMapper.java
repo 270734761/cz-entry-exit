@@ -17,5 +17,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 
     int addCustomer(Customer customer);
 
+    int updateCustomer(Customer customer);
+
     List<Customer> getCustomerByParams(Map<String,String> param);
 }

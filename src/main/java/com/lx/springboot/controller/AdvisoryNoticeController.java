@@ -10,11 +10,15 @@ import com.lx.springboot.entity.AdvisoryNotice;
 import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.query.AdvisoryNoticeQuery;
 import com.lx.springboot.service.AdvisoryNoticeService;
+import com.lx.springboot.utils.EnhanceBeanUtils;
 import com.lx.springboot.utils.TableUtils;
+import com.lx.springboot.vo.AdvisoryNoticeVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,20 +61,27 @@ public class AdvisoryNoticeController {
 
     @RequestMapping(value = {"/getAdvisoryNoticeByParam"})
     @ResponseBody
-    public List<AdvisoryNotice> getAdvisoryNoticeByParam(){
-        List<AdvisoryNotice> advisoryNoticeList=null;
-        AdvisoryNotice advisoryNotice =new AdvisoryNotice();
+    public List<AdvisoryNoticeVo> getAdvisoryNoticeByParam(){
+        List<AdvisoryNoticeVo> advisoryNoticeVoList=new ArrayList<AdvisoryNoticeVo>();
         try{
-            log.info("AdvisoryNoticeController.getAdvisoryNoticeByParam start advisoryNotice:"+JSONObject.toJSONString(advisoryNotice));
+            log.info("AdvisoryNoticeController.getAdvisoryNoticeByParam start");
+            AdvisoryNotice advisoryNotice =new AdvisoryNotice();
             advisoryNotice.setStart(0);
-            advisoryNotice.setEnd(5);
+            advisoryNotice.setEnd(2);
             advisoryNotice.setType(TypeEnum.NOTICE.getModelType());
-            advisoryNoticeList = advisoryNoticeService.getAdvisoryNoticeByParam(advisoryNotice);
+            List<AdvisoryNotice> advisoryNoticeList = advisoryNoticeService.getAdvisoryNoticeByParam(advisoryNotice);
+            if(CollectionUtils.isNotEmpty(advisoryNoticeList)){
+                for(AdvisoryNotice notice:advisoryNoticeList){
+                    AdvisoryNoticeVo advisoryNoticeVo=new AdvisoryNoticeVo();
+                    EnhanceBeanUtils.copyProperties(notice,advisoryNoticeVo);
+                    advisoryNoticeVoList.add(advisoryNoticeVo);
+                }
+            }
         }catch(Exception e){
-            log.error("AdvisoryNoticeController.getAdvisoryNoticeByParam is error advisoryNotice:"+JSONObject.toJSONString(advisoryNotice),e);
+            log.error("AdvisoryNoticeController.getAdvisoryNoticeByParam is error",e);
         }
         log.info("AdvisoryNoticeController.getAdvisoryNoticeByParam is success");
-        return advisoryNoticeList;
+        return advisoryNoticeVoList;
     }
 
     @RequestMapping(value = {"/getDetailById"})
@@ -121,19 +132,29 @@ public class AdvisoryNoticeController {
     }
     @RequestMapping(value = {"/getAdvisoryNoticeList"})
     @ResponseBody
-    public TableUtils<List<AdvisoryNotice>> getAdvisoryNoticeList(@RequestBody AdvisoryNoticeQuery advisoryNoticeQuery){
+    public TableUtils<List<AdvisoryNoticeVo>> getAdvisoryNoticeList(@RequestBody AdvisoryNoticeQuery advisoryNoticeQuery){
         List<AdvisoryNotice> advisoryNoticeList=null;
+        List<AdvisoryNoticeVo> AdvisoryNoticeVoList=new ArrayList<AdvisoryNoticeVo>();
         try{
-            log.info("AdvisoryNoticeController.addAdvisoryNotice start");
+            log.info("AdvisoryNoticeController.getAdvisoryNoticeList start advisoryNoticeQuery:"+JSONObject.toJSONString(advisoryNoticeQuery));
+            AdvisoryNotice advisoryNotice=new AdvisoryNotice();
+            advisoryNotice.setType(advisoryNoticeQuery.getType());
             //获取第1页，10条内容，默认查询总数count
             Page page = PageHelper.startPage(advisoryNoticeQuery.getPage(), advisoryNoticeQuery.getLimit());
             //紧跟着的第一个select方法会被分页
-            advisoryNoticeList = advisoryNoticeService.getAllAdvisoryNotice();
+            advisoryNoticeList = advisoryNoticeService.getAdvisoryNoticePageByparam(advisoryNotice);
+            if(CollectionUtils.isNotEmpty(advisoryNoticeList)){
+                for(AdvisoryNotice notice:advisoryNoticeList){
+                    AdvisoryNoticeVo advisoryNoticeVo=new AdvisoryNoticeVo();
+                    EnhanceBeanUtils.copyProperties(notice,advisoryNoticeVo);
+                    AdvisoryNoticeVoList.add(advisoryNoticeVo);
+                }
+            }
             //用PageInfo对结果进行包装
             PageInfo pageInfo = new PageInfo(page.getResult());
-            return new TableUtils(pageInfo.getTotal(), advisoryNoticeList);
+            return new TableUtils(pageInfo.getTotal(), AdvisoryNoticeVoList);
         }catch(Exception e){
-            log.error("AdvisoryNoticeController.addAdvisoryNotice is error",e);
+            log.error("AdvisoryNoticeController.addAdvisoryNotice is error advisoryNoticeQuery:"+JSONObject.toJSONString(advisoryNoticeQuery),e);
             return new TableUtils();
         }
     }

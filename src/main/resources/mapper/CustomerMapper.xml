@@ -15,6 +15,11 @@
         <result column="updated_date" property="updatedDate" />
         <result column="alipay_id" property="alipayId" />
         <result column="cz_session_id" property="czSessionId" />
+        <result column="name_pinyin" property="namePinyin" />
+        <result column="contact_name" property="contactName" />
+        <result column="contact_phone" property="contactPhone" />
+        <result column="mail_address" property="mailAddress" />
+        <result column="head_pic" property="headPic" />
     </resultMap>
 
     <insert id="addCustomer" parameterType="com.lx.springboot.entity.Customer" useGeneratedKeys="true" keyProperty="id">
@@ -50,6 +55,44 @@
          <include refid="selectCustomerByParams_SQL"/>
         </where>
     </select>
+
+    <update id="updateCustomer" parameterType="customer">
+        update customer
+        <set>
+            <if test="customerId != null and customerId !=''">
+                `customer_id` = #{customerId},
+            </if>
+            <if test="customerName != null and customerName !=''">
+                `customer_name` = #{customerName},
+            </if>
+            <if test="password != null and password !=''">
+                `password` = #{password},
+            </if>
+            <if test="phoneNumber != null and phoneNumber !=''">
+                `phone_number` = #{phoneNumber},
+            </if>
+            <if test="email != null and email !=''">
+                `email` = #{email},
+            </if>
+            <if test="namePinyin != null and namePinyin !=''">
+                `name_pinyin` = #{namePinyin},
+            </if>
+            <if test="contactName != null and contactName !=''">
+                `contact_name` = #{contactName},
+            </if>
+            <if test="contactPhone != null and contactPhone !=''">
+                `contact_phone` = #{contactPhone},
+            </if>
+            <if test="mailAddress != null and mailAddress !=''">
+                `mail_address` = #{mailAddress},
+            </if>
+            <if test="headPic != null and headPic !=''">
+                `head_pic` = #{headPic},
+            </if>
+            updated_date=now()
+        </set>
+        where alipay_id = #{alipayId}
+    </update>
 
     <!--根据会员id删除会员信息-->
     <delete id="deleteById">

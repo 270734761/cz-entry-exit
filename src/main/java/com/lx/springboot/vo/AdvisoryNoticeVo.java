@@ -1,4 +1,4 @@
-package com.lx.springboot.entity;
+package com.lx.springboot.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
  * 咨询公告信息
  * </p>
  */
-public class AdvisoryNotice implements Serializable {
+public class AdvisoryNoticeVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -117,7 +117,7 @@ public class AdvisoryNotice implements Serializable {
 
     @Override
     public String toString() {
-        return "AdvisoryNotice{" +
+        return "AdvisoryNoticeVo{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", contentDetail='" + contentDetail + '\'' +
