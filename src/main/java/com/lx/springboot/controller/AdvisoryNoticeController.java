@@ -7,12 +7,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lx.springboot.Enums.TypeEnum;
 import com.lx.springboot.entity.AdvisoryNotice;
+import com.lx.springboot.entity.ServiceNetwork;
 import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.query.AdvisoryNoticeQuery;
 import com.lx.springboot.service.AdvisoryNoticeService;
+import com.lx.springboot.service.ServiceNetworkService;
 import com.lx.springboot.utils.EnhanceBeanUtils;
 import com.lx.springboot.utils.TableUtils;
 import com.lx.springboot.vo.AdvisoryNoticeVo;
+import com.lx.springboot.vo.ServiceNetworkVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,8 @@ public class AdvisoryNoticeController {
 
     @Autowired
     private AdvisoryNoticeService advisoryNoticeService;
+    @Autowired
+    private ServiceNetworkService serviceNetworkService;
 
     @RequestMapping(value = {"/addNotice"})
     @ResponseBody
@@ -157,6 +162,27 @@ public class AdvisoryNoticeController {
             log.error("AdvisoryNoticeController.addAdvisoryNotice is error advisoryNoticeQuery:"+JSONObject.toJSONString(advisoryNoticeQuery),e);
             return new TableUtils();
         }
+    }
+
+    @RequestMapping(value = {"/getAllServiceNetwork"})
+    @ResponseBody
+    public List<ServiceNetworkVo> getAllServiceNetwork(){
+        List<ServiceNetworkVo> list=new ArrayList<ServiceNetworkVo>();
+        try{
+            log.info("AdvisoryNoticeController.getAllServiceNetwork start");
+            List<ServiceNetwork> ServiceNetworkList=serviceNetworkService.getAllServiceNetwork();
+            if(CollectionUtils.isNotEmpty(ServiceNetworkList)){
+                for(ServiceNetwork serviceNetwork:ServiceNetworkList){
+                    ServiceNetworkVo serviceNetworkVo=new ServiceNetworkVo();
+                    EnhanceBeanUtils.copyProperties(serviceNetwork,serviceNetworkVo);
+                    list.add(serviceNetworkVo);
+                }
+            }
+        }catch(Exception e){
+            log.error("AdvisoryNoticeController.getAllServiceNetwork is error",e);
+        }
+        log.info("AdvisoryNoticeController.getAllServiceNetwork is success");
+        return list;
     }
 
 }
