@@ -3,11 +3,13 @@ package com.lx.springboot.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lx.springboot.Enums.ApplyTypeEnum;
 import com.lx.springboot.Enums.FlowStateEnum;
+import com.lx.springboot.entity.EntryExitApply;
 import com.lx.springboot.entity.FlowState;
 import com.lx.springboot.entity.UserInfo;
+import com.lx.springboot.mapper.EntryExitApplyMapper;
 import com.lx.springboot.mapper.UserInfoMapper;
-import com.lx.springboot.service.AdvisoryNoticeService;
 import com.lx.springboot.service.CustomerService;
+import com.lx.springboot.service.EntryExitApplyService;
 import com.lx.springboot.service.FlowStateService;
 import com.lx.springboot.service.UserInfoService;
 import com.lx.springboot.vo.CustomerVo;
@@ -26,7 +28,7 @@ import java.util.Map;
  * </p>
  */
 @Service
-public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
+public class EntryExitApplyServiceImpl extends ServiceImpl<EntryExitApplyMapper, EntryExitApply> implements EntryExitApplyService {
 
     @Autowired
     private FlowStateService flowStateService;
@@ -34,45 +36,45 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private CustomerService customerService;
 
     @Override
-    public int addUserInfo(UserInfo userInfo) {
-        userInfo.setFlowState(FlowStateEnum.SUBMITTED.getDesc());//已提交
-        userInfo.setIsValid(1);
-        baseMapper.addUserInfo(userInfo);
-        int id=userInfo.getId();
+    public int addEntryExitApply(EntryExitApply entryExitApply) {
+        entryExitApply.setFlowState(FlowStateEnum.SUBMITTED.getDesc());//已提交
+        entryExitApply.setIsValid(1);
+        baseMapper.addEntryExitApply(entryExitApply);
+        int id=entryExitApply.getId();
         //创建办件流转信息
-        addFlowState(userInfo);
+        addFlowState(entryExitApply);
         //更新会员信息
-        updateCustomer(userInfo);
+        updateCustomer(entryExitApply);
         return id;
     }
 
-    public int updateCustomer(UserInfo userInfo){
+    public int updateCustomer(EntryExitApply entryExitApply){
         Map<String,String> param=new HashMap<String,String>();
-        param.put("alipayId",userInfo.getAlipayId());
+        param.put("alipayId",entryExitApply.getAlipayId());
         List<CustomerVo> customerList= customerService.getCustomerByParams(param);
         if(CollectionUtils.isNotEmpty(customerList)){
             CustomerVo customerVo=new CustomerVo();
-            customerVo.setCustomerName(userInfo.getNamef()+userInfo.getNamel());
-            String namePinyin=userInfo.getNamepinf()+" "+userInfo.getNamepinl();
+            customerVo.setCustomerName(entryExitApply.getNamef()+entryExitApply.getNamel());
+            String namePinyin=entryExitApply.getNamepinf()+" "+entryExitApply.getNamepinl();
             if(StringUtils.isNotEmpty(namePinyin)){
                 customerVo.setNamePinyin(namePinyin.toUpperCase());
             }
-            customerVo.setContactName(userInfo.getContactName());
-            customerVo.setContactPhone(userInfo.getContactPhone());
-            customerVo.setMailAddress(userInfo.getConsigneeAdress());
-            customerVo.setAlipayId(userInfo.getAlipayId());
+            customerVo.setContactName(entryExitApply.getContactName());
+            customerVo.setContactPhone(entryExitApply.getContactPhone());
+            customerVo.setMailAddress(entryExitApply.getConsigneeAdress());
+            customerVo.setAlipayId(entryExitApply.getAlipayId());
             return customerService.updateCustomer(customerVo);
         }
         return 1;
     }
 
-    public void addFlowState(UserInfo userInfo){
+    public void addFlowState(EntryExitApply entryExitApply){
         int i=1;
         for (FlowStateEnum value : FlowStateEnum.values()) {
             FlowState flowState=new FlowState();
-            flowState.setApplyId(userInfo.getId());
-            flowState.setAlipayId(userInfo.getAlipayId());
-            flowState.setTitle(ApplyTypeEnum.getDescByType(userInfo.getIdType()));
+            flowState.setApplyId(entryExitApply.getId());
+            flowState.setAlipayId(entryExitApply.getAlipayId());
+            flowState.setTitle(ApplyTypeEnum.getDescByType(entryExitApply.getIdType()));
             flowState.setFlowStateDesc(value.getDesc());
             flowState.setFlowState(i);
             if("submitted".equals(value.getModelType())){
@@ -86,13 +88,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     @Override
-    public List<UserInfo> getAllUserInfo() {
-        return baseMapper.getAllUserInfo();
+    public List<EntryExitApply> getAllEntryExitApply() {
+        return baseMapper.getAllEntryExitApply();
     }
 
     @Override
-    public List<UserInfo> getUserInfoByParam(UserInfo userInfo) {
-        return baseMapper.getUserInfoByParam(userInfo);
+    public List<EntryExitApply> getEntryExitApplyByParam(EntryExitApply entryExitApply) {
+        return baseMapper.getEntryExitApplyByParam(entryExitApply);
     }
 
     @Override

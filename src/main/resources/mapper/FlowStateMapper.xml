@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="flowState">
         <id column="id" property="id" jdbcType="DECIMAL"/>
-        <result column="user_info_id" property="userInfoId" jdbcType="DECIMAL"/>
+        <result column="apply_id" property="applyId" jdbcType="DECIMAL"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="note" property="note" jdbcType="VARCHAR"/>
         <result column="flow_state" property="flowState" jdbcType="DECIMAL"/>
@@ -18,11 +18,11 @@
 
     <insert id="addFlowState" parameterType="com.lx.springboot.entity.FlowState" useGeneratedKeys="true" keyProperty="id">
         insert into flow_state (
-         id,user_info_id,title, note, flow_state,flow_state_desc, create_time,update_time,is_valid,alipay_id
+         id,apply_id,title, note, flow_state,flow_state_desc, create_time,update_time,is_valid,alipay_id
         )
         values
         (
-        #{id,jdbcType=DECIMAL},#{userInfoId,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
+        #{id,jdbcType=DECIMAL},#{applyId,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
         #{note,jdbcType=VARCHAR}, #{flowState,jdbcType=DECIMAL},#{flowStateDesc,jdbcType=VARCHAR}, now(),
         now(), #{isValid,jdbcType=DECIMAL}, #{alipayId,jdbcType=VARCHAR}
         )
@@ -30,7 +30,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-         id,user_info_id,title, note, flow_state,flow_state_desc, create_time,update_time,is_valid,alipay_id
+         id,apply_id,title, note, flow_state,flow_state_desc, create_time,update_time,is_valid,alipay_id
     </sql>
 
     <select id="getFlowStateByParam" resultMap="BaseResultMap" parameterType="flowState">
@@ -44,9 +44,14 @@
     <select id="queryFlowStateDetail" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from flow_state where is_valid=1
-        AND user_info_id = #{userInfoId,jdbcType=DECIMAL}
+        from flow_state where  apply_id = #{applyId,jdbcType=DECIMAL}
         order by flow_state asc
+    </select>
+
+    <select id="queryMaxFlowState" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select
+        max(flow_state)
+        from flow_state where  apply_id = #{applyId,jdbcType=DECIMAL} and is_valid=1
     </select>
 
     <!--根据流转id删除流转状态信息-->
@@ -55,8 +60,8 @@
     </delete>
 
     <sql id="selectFlowStateByParams_SQL">
-        <if test="userInfoId != null" >
-            AND user_info_id = #{userInfoId,jdbcType=DECIMAL}
+        <if test="applyId != null" >
+            AND apply_id = #{applyId,jdbcType=DECIMAL}
         </if>
         <if test="alipayId != null" >
             AND alipay_id = #{alipayId,jdbcType=VARCHAR}

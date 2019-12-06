@@ -17,7 +17,7 @@ public class FlowStateVo implements Serializable {
      */
     private Integer   id ;
 
-    private Integer userInfoId;//申请单表主键
+    private Integer applyId;//申请单表主键
 
     private String   title ;//标题
 
@@ -83,12 +83,12 @@ public class FlowStateVo implements Serializable {
         this.isValid = isValid;
     }
 
-    public Integer getUserInfoId() {
-        return userInfoId;
+    public Integer getApplyId() {
+        return applyId;
     }
 
-    public void setUserInfoId(Integer userInfoId) {
-        this.userInfoId = userInfoId;
+    public void setApplyId(Integer applyId) {
+        this.applyId = applyId;
     }
 
     public String getAlipayId() {
@@ -119,7 +119,7 @@ public class FlowStateVo implements Serializable {
     public String toString() {
         return "FlowState{" +
                 "id=" + id +
-                ", userInfoId=" + userInfoId +
+                ", applyId=" + applyId +
                 ", title='" + title + '\'' +
                 ", note='" + note + '\'' +
                 ", flowState='" + flowState + '\'' +

@@ -30,8 +30,13 @@ public class FlowStateServiceImpl extends ServiceImpl<FlowStateMapper, FlowState
     }
 
     @Override
-    public List<FlowState> queryFlowStateDetail(Integer userInfoId) {
-        return baseMapper.queryFlowStateDetail(userInfoId);
+    public List<FlowState> queryFlowStateDetail(Integer applyId) {
+        return baseMapper.queryFlowStateDetail(applyId);
+    }
+
+    @Override
+    public int queryMaxFlowState(Integer applyId) {
+        return baseMapper.queryMaxFlowState(applyId);
     }
 
     @Override

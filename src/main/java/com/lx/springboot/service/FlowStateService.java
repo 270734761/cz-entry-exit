@@ -18,7 +18,9 @@ public interface FlowStateService extends IService<FlowState> {
 
     List<FlowState> getFlowStateByParam(FlowState flowState);
 
-    List<FlowState> queryFlowStateDetail(Integer userInfoId);
+    List<FlowState> queryFlowStateDetail(Integer applyId);
+
+    int  queryMaxFlowState(Integer applyId);
 
     int deleteById(Long id);
 }

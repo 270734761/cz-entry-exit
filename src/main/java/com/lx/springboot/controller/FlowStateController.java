@@ -4,9 +4,11 @@ package com.lx.springboot.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lx.springboot.Enums.TypeEnum;
 import com.lx.springboot.entity.AdvisoryNotice;
+import com.lx.springboot.entity.EntryExitApply;
 import com.lx.springboot.entity.FlowState;
 import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.service.AdvisoryNoticeService;
+import com.lx.springboot.service.EntryExitApplyService;
 import com.lx.springboot.service.FlowStateService;
 import com.lx.springboot.service.UserInfoService;
 import com.lx.springboot.utils.EnhanceBeanUtils;
@@ -38,7 +40,7 @@ public class FlowStateController {
     private FlowStateService flowStateService;
 
     @Autowired
-    private UserInfoService userInfoService;
+    private EntryExitApplyService entryExitApplyService;
 
     @RequestMapping(value = {"/queryFlowStateList"})
     @ResponseBody
@@ -46,13 +48,13 @@ public class FlowStateController {
         log.info("FlowStateController.queryFlowStateList alipayId:" + alipayId);
         List<FlowStateVo> flowStateVoList = new ArrayList<FlowStateVo>();
         try {
-            UserInfo userInfo = new UserInfo();
-            userInfo.setAlipayId(alipayId);
-            List<UserInfo> userInfoList = userInfoService.getUserInfoByParam(userInfo);
-            if (CollectionUtils.isNotEmpty(userInfoList)) {
-                for (UserInfo user : userInfoList) {
+            EntryExitApply entryExitApply=new EntryExitApply();
+            entryExitApply.setAlipayId(alipayId);
+            List<EntryExitApply> entryExitApplyList=entryExitApplyService.getEntryExitApplyByParam(entryExitApply);
+            if (CollectionUtils.isNotEmpty(entryExitApplyList)) {
+                for (EntryExitApply entryExitA : entryExitApplyList) {
                     FlowState flowState = new FlowState();
-                    flowState.setUserInfoId(user.getId());
+                    flowState.setApplyId(entryExitA.getId());
                     List<FlowState> flowStateList = flowStateService.getFlowStateByParam(flowState);
                     if (CollectionUtils.isNotEmpty(flowStateList)) {
                         FlowState flow = flowStateList.get(0);
@@ -70,23 +72,22 @@ public class FlowStateController {
 
     @RequestMapping(value = {"/queryFlowStateDetail"})
     @ResponseBody
-    public Map<String, Object> queryFlowStateDetail(Integer userInfoId) {
-        log.info("FlowStateController.queryFlowStateDetail userInfoId:" + userInfoId);
+    public Map<String, Object> queryFlowStateDetail(Integer applyId) {
+        log.info("FlowStateController.queryFlowStateDetail applyId:" + applyId);
         Map<String, Object> map = new HashMap<String, Object>();
         List<FlowStateVo> flowStateVoList = new ArrayList<FlowStateVo>();
-        int flowStateTep = 0;
+        int flowStateTep = flowStateService.queryMaxFlowState(applyId);
         try {
-            List<FlowState> flowStateList = flowStateService.queryFlowStateDetail(userInfoId);
+            List<FlowState> flowStateList = flowStateService.queryFlowStateDetail(applyId);
             if (CollectionUtils.isNotEmpty(flowStateList)) {
                 for (FlowState flow : flowStateList) {
                     FlowStateVo flowStateVo = new FlowStateVo();
                     EnhanceBeanUtils.copyProperties(flow, flowStateVo);
                     flowStateVoList.add(flowStateVo);
                 }
-                flowStateTep = flowStateList.get(flowStateList.size() - 1).getFlowState();
             }
         } catch (Exception e) {
-            log.error("FlowStateController.queryFlowStateDetail is error userInfoId:" + userInfoId, e);
+            log.error("FlowStateController.queryFlowStateDetail is error applyId:" + applyId, e);
         }
         map.put("flowStateVoList", flowStateVoList);
         map.put("flowStateTep", flowStateTep);
