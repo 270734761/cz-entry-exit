@@ -50,18 +50,19 @@ public class CustomerController {
 
     @RequestMapping(value = {"/getCustomerByParam"})
     @ResponseBody
-    public List<CustomerVo> getCustomerByParam(String alipayId){
-        List<CustomerVo> customerVoList=null;
+    public CustomerVo getCustomerByParam(String alipayId){
+        CustomerVo customerVo=new CustomerVo();
         try{
             log.info("CustomerController.getCustomerByParam start alipayId:"+ alipayId);
             Map<String,String> param=new HashMap<String,String>();
             param.put("alipayId",alipayId);
-            customerVoList = customerService.getCustomerByParams(param);
+            List<CustomerVo> customerVoList = customerService.getCustomerByParams(param);
+            customerVo=customerVoList.get(0);
         }catch(Exception e){
             log.error("CustomerController.getCustomerByParam is error alipayId:"+alipayId,e);
         }
         log.info("UserInfoController getCustomerByParam is success");
-        return customerVoList;
+        return customerVo;
     }
 
 }
