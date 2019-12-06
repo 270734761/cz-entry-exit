@@ -80,11 +80,11 @@ public class FlowStateController {
         try {
             List<FlowState> flowStateList = flowStateService.queryFlowStateDetail(applyId);
             if (CollectionUtils.isNotEmpty(flowStateList)) {
-                for (FlowState flow : flowStateList) {
+                flowStateList.forEach(flow->{
                     FlowStateVo flowStateVo = new FlowStateVo();
                     EnhanceBeanUtils.copyProperties(flow, flowStateVo);
                     flowStateVoList.add(flowStateVo);
-                }
+                });
             }
         } catch (Exception e) {
             log.error("FlowStateController.queryFlowStateDetail is error applyId:" + applyId, e);
