@@ -33,6 +33,8 @@ public class FlowStateVo implements Serializable {
 
     private Date updateTime;
 
+    private String updateTimeStr;
+
     private Integer   isValid ;// '是否有效1：有效 0：无效',
 
     public Integer getId() {
@@ -113,6 +115,14 @@ public class FlowStateVo implements Serializable {
 
     public void setFlowStateDesc(String flowStateDesc) {
         this.flowStateDesc = flowStateDesc;
+    }
+
+    public String getUpdateTimeStr() {
+        return updateTimeStr;
+    }
+
+    public void setUpdateTimeStr(String updateTimeStr) {
+        this.updateTimeStr = updateTimeStr;
     }
 
     @Override

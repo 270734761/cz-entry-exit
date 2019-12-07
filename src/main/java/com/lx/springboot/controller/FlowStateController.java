@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,8 @@ public class FlowStateController {
                         FlowState flow = flowStateList.get(0);
                         FlowStateVo flowStateVo = new FlowStateVo();
                         EnhanceBeanUtils.copyProperties(flow, flowStateVo);
+                        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        flowStateVo.setUpdateTimeStr(format.format(flowStateVo.getUpdateTime()));
                         flowStateVoList.add(flowStateVo);
                     }
                 }
@@ -83,6 +86,8 @@ public class FlowStateController {
                 flowStateList.forEach(flow->{
                     FlowStateVo flowStateVo = new FlowStateVo();
                     EnhanceBeanUtils.copyProperties(flow, flowStateVo);
+                    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    flowStateVo.setUpdateTimeStr(format.format(flowStateVo.getUpdateTime()));
                     flowStateVoList.add(flowStateVo);
                 });
             }
