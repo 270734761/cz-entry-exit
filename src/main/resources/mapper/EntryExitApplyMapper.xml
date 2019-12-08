@@ -71,6 +71,7 @@
         <include refid="Base_Column_List"/>
         from entry_exit_apply where is_valid=1
         <include refid="selectEntryExitApplyByParams_SQL"/>
+        order by id desc
     </select>
 
     <!--根据会员id删除申请人信息-->

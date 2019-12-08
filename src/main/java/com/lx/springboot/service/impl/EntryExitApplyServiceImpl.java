@@ -71,6 +71,14 @@ public class EntryExitApplyServiceImpl extends ServiceImpl<EntryExitApplyMapper,
             customer.setAlipayId(entryExitApply.getAlipayId());
             customer.setCzSessionId(sseionId);
             customer.setStatus("1");
+            customer.setCustomerName(entryExitApply.getNamef()+entryExitApply.getNamel());
+            String namePinyin=entryExitApply.getNamepinf()+" "+entryExitApply.getNamepinl();
+            if(StringUtils.isNotEmpty(namePinyin)){
+                customer.setNamePinyin(namePinyin.toUpperCase());
+            }
+            customer.setContactName(entryExitApply.getContactName());
+            customer.setContactPhone(entryExitApply.getContactPhone());
+            customer.setMailAddress(entryExitApply.getConsigneeAdress());
             customerService.addCustomer(customer);
         }
         return 1;
