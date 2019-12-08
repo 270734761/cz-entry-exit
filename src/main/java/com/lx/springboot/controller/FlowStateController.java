@@ -79,8 +79,10 @@ public class FlowStateController {
         log.info("FlowStateController.queryFlowStateDetail applyId:" + applyId);
         Map<String, Object> map = new HashMap<String, Object>();
         List<FlowStateVo> flowStateVoList = new ArrayList<FlowStateVo>();
-        int flowStateTep = flowStateService.queryMaxFlowState(applyId);
+
         try {
+            int flowStateTep = flowStateService.queryMaxFlowState(applyId);
+            map.put("flowStateTep", flowStateTep);
             List<FlowState> flowStateList = flowStateService.queryFlowStateDetail(applyId);
             if (CollectionUtils.isNotEmpty(flowStateList)) {
                 flowStateList.forEach(flow->{
@@ -95,7 +97,6 @@ public class FlowStateController {
             log.error("FlowStateController.queryFlowStateDetail is error applyId:" + applyId, e);
         }
         map.put("flowStateVoList", flowStateVoList);
-        map.put("flowStateTep", flowStateTep);
         return map;
     }
 }

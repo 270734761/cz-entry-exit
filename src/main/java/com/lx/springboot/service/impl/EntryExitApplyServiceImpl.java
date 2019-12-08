@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * <p>
@@ -64,6 +65,13 @@ public class EntryExitApplyServiceImpl extends ServiceImpl<EntryExitApplyMapper,
             customerVo.setMailAddress(entryExitApply.getConsigneeAdress());
             customerVo.setAlipayId(entryExitApply.getAlipayId());
             return customerService.updateCustomer(customerVo);
+        }else{
+            String sseionId = UUID.randomUUID().toString();
+            CustomerVo customer=new CustomerVo();
+            customer.setAlipayId(entryExitApply.getAlipayId());
+            customer.setCzSessionId(sseionId);
+            customer.setStatus("1");
+            customerService.addCustomer(customer);
         }
         return 1;
     }
