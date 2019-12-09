@@ -21,6 +21,8 @@ public class AdvisoryNoticeVo implements Serializable {
 
     private String   contentDetail ;// 详细内容
 
+    private String detailUrl;// 详细内容url
+
     private String   type ;// 类型
 
     private Date createTime;
@@ -115,12 +117,21 @@ public class AdvisoryNoticeVo implements Serializable {
         this.topSort = topSort;
     }
 
+    public String getDetailUrl() {
+        return detailUrl;
+    }
+
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
+    }
+
     @Override
     public String toString() {
         return "AdvisoryNoticeVo{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", contentDetail='" + contentDetail + '\'' +
+                ", detailUrl='" + detailUrl + '\'' +
                 ", type='" + type + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

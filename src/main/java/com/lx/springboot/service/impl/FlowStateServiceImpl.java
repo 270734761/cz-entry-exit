@@ -2,11 +2,8 @@ package com.lx.springboot.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lx.springboot.entity.FlowState;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.mapper.FlowStateMapper;
-import com.lx.springboot.mapper.UserInfoMapper;
 import com.lx.springboot.service.FlowStateService;
-import com.lx.springboot.service.UserInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

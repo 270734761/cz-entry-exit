@@ -12,11 +12,9 @@ import com.alipay.api.internal.util.AlipayEncrypt;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
-import com.lx.springboot.entity.Customer;
 import com.lx.springboot.request.AlipayAppletAuthRequest;
 import com.lx.springboot.response.AlipayAppletAuthResponse;
 import com.lx.springboot.service.CustomerService;
-import com.lx.springboot.service.UserInfoService;
 import com.lx.springboot.utils.EnhanceBeanUtils;
 import com.lx.springboot.vo.CustomerVo;
 import lombok.extern.slf4j.Slf4j;
@@ -43,8 +41,6 @@ public class AlipayAppletController {
     String signVeriKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkFRN+aJCedDRtznGWfj3aDAA1YpXdEOpB/AWz39GjHLSmCqSB9bidrqSpD62DOUFg3uoWSvsIQFzyCWTkrQz+oOiA6y8xiRSdYuRoh0bjUu5xeA9TPV6qURptrJh8xDFfnVpX6gub4+lp5KOLRqYPavnfzydRJehbWlbQXwsB//odW20vwEvGncYCos9kCbms0tyju/0a+FPcVeHY94w49K/wic3RFqZ8A8ZqFjtpQb8MyzsJq1DcqyU58tdsyjrlIsFA7eClfjyi1i/58nSJbldZNqDmNfGlz6cxePgvn3aHT5A3OVt80E3BcomhWZ+MdqQPpluvGWAEqbATvbqRwIDAQAB";
     String decryptKey = "QPgSY1C8zNf9BYA2JcF7Pg==";
 
-    @Autowired
-    private UserInfoService userInfoService;
 
     @Autowired
     private CustomerService customerService;

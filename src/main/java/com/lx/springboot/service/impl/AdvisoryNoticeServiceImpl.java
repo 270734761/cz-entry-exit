@@ -2,11 +2,8 @@ package com.lx.springboot.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lx.springboot.entity.AdvisoryNotice;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.mapper.AdvisoryNoticeMapper;
-import com.lx.springboot.mapper.UserInfoMapper;
 import com.lx.springboot.service.AdvisoryNoticeService;
-import com.lx.springboot.service.UserInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

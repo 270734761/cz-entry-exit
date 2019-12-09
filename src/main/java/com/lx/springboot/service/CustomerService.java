@@ -2,7 +2,6 @@ package com.lx.springboot.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lx.springboot.entity.Customer;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.vo.CustomerVo;
 
 import java.util.List;

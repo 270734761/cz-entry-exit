@@ -3,9 +3,7 @@ package com.lx.springboot.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lx.springboot.entity.EntryExitApply;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.service.EntryExitApplyService;
-import com.lx.springboot.service.UserInfoService;
 import com.lx.springboot.utils.EnhanceBeanUtils;
 import com.lx.springboot.vo.EntryExitApplyVo;
 import lombok.extern.slf4j.Slf4j;

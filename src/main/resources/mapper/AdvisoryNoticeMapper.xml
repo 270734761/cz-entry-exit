@@ -7,6 +7,7 @@
         <id column="id" property="id" jdbcType="DECIMAL"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="content_detail" property="contentDetail" jdbcType="VARCHAR"/>
+        <result column="detail_url" property="detailUrl" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="is_valid" property="isValid" jdbcType="DECIMAL"/>
@@ -15,19 +16,19 @@
 
     <insert id="addAdvisoryNotice" parameterType="com.lx.springboot.entity.AdvisoryNotice" useGeneratedKeys="true" keyProperty="id">
         insert into advisory_notice (
-         id,title,content_detail,type, create_time,update_time,is_valid,top_sort
+         id,title,content_detail,detail_url,type, create_time,update_time,is_valid,top_sort
         )
         values
         (
         #{id,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
-        #{contentDetail,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},now(),
+        #{contentDetail,jdbcType=VARCHAR},#{detailUrl,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},now(),
         now(), #{isValid,jdbcType=DECIMAL}, #{topSort,jdbcType=DECIMAL}
         )
     </insert>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,title,content_detail,type, create_time,update_time,is_valid,top_sort
+        id,title,content_detail,detail_url,type, create_time,update_time,is_valid,top_sort
     </sql>
 
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -69,7 +70,7 @@
 
     <select id="getReadingProtocalByParam" resultType="java.lang.String" parameterType="advisoryNotice">
         select
-        content_detail
+        detail_url
         from advisory_notice where is_valid=1
         <if test="type != null" >
             AND type = #{type,jdbcType=VARCHAR}
@@ -83,7 +84,7 @@
 
     <select id="getDetailById" resultType="java.lang.String" parameterType="java.lang.Integer">
         select
-        content_detail
+        detail_url
         from advisory_notice where is_valid=1
        and id=#{type,jdbcType=DECIMAL}
 

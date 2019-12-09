@@ -1,17 +1,12 @@
 package com.lx.springboot.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.lx.springboot.entity.Customer;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.service.CustomerService;
 import com.lx.springboot.vo.CustomerVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;

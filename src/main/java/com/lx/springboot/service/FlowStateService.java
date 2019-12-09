@@ -2,7 +2,6 @@ package com.lx.springboot.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lx.springboot.entity.FlowState;
-import com.lx.springboot.entity.UserInfo;
 
 import java.util.List;
 

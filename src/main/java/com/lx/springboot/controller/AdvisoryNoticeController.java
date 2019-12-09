@@ -8,7 +8,6 @@ import com.github.pagehelper.PageInfo;
 import com.lx.springboot.Enums.TypeEnum;
 import com.lx.springboot.entity.AdvisoryNotice;
 import com.lx.springboot.entity.ServiceNetwork;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.query.AdvisoryNoticeQuery;
 import com.lx.springboot.service.AdvisoryNoticeService;
 import com.lx.springboot.service.ServiceNetworkService;
@@ -93,10 +92,10 @@ public class AdvisoryNoticeController {
     @ResponseBody
     public String getDetailById(Integer id){
         JSONObject json=new JSONObject();
-        String contentDetail="";
+        String detailUrl="";
         try{
-            contentDetail = advisoryNoticeService.getDetailById(id);
-            json.put("contentDetail",contentDetail);
+            detailUrl = advisoryNoticeService.getDetailById(id);
+            json.put("detailUrl",detailUrl);
         }catch(Exception e){
             log.error("AdvisoryNoticeController.getDetailById is error id:"+id,e);
         }

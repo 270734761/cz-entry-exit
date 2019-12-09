@@ -4,9 +4,7 @@ package com.lx.springboot.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lx.springboot.Enums.TypeEnum;
 import com.lx.springboot.entity.AdvisoryNotice;
-import com.lx.springboot.entity.UserInfo;
 import com.lx.springboot.service.AdvisoryNoticeService;
-import com.lx.springboot.service.UserInfoService;
 import com.lx.springboot.utils.EnhanceBeanUtils;
 import com.lx.springboot.vo.AdvisoryNoticeVo;
 import lombok.extern.slf4j.Slf4j;
@@ -59,10 +57,10 @@ public class GuidWorkController {
     public String getDetailById(Integer id){
         log.info("AdvisoryNoticeController.getDetailById id:"+id);
         JSONObject json=new JSONObject();
-        String contentDetail="";
+        String detailUrl="";
         try{
-            contentDetail = advisoryNoticeService.getDetailById(id);
-            json.put("contentDetail",contentDetail);
+            detailUrl = advisoryNoticeService.getDetailById(id);
+            json.put("detailUrl",detailUrl);
         }catch(Exception e){
             log.error("AdvisoryNoticeController.getDetailById is error id:"+id,e);
         }
