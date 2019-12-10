@@ -1,6 +1,7 @@
 package com.lx.springboot.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.lx.springboot.service.CustomerService;
 import com.lx.springboot.vo.CustomerVo;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,7 @@ public class CustomerController {
             Map<String,String> param=new HashMap<String,String>();
             param.put("alipayId",alipayId);
             List<CustomerVo> customerVoList = customerService.getCustomerByParams(param);
+            log.info("CustomerController.getCustomerByParam start alipayId:"+ alipayId+",customerVoList:"+ JSONObject.toJSONString(customerVoList));
             customerVo=customerVoList.get(0);
         }catch(Exception e){
             log.error("CustomerController.getCustomerByParam is error alipayId:"+alipayId,e);
