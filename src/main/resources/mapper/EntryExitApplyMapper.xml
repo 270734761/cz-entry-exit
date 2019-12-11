@@ -10,7 +10,7 @@
         <result column="namel" property="namel" jdbcType="VARCHAR"/>
         <result column="namepinf" property="namepinf" jdbcType="VARCHAR"/>
         <result column="namepinl" property="namepinl" jdbcType="VARCHAR"/>
-        <result column="gender" property="gender" jdbcType="DECIMAL"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
         <result column="nation" property="nation" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
         <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
@@ -36,7 +36,7 @@
         values
         (
         #{id,jdbcType=DECIMAL},#{alipayId,jdbcType=DECIMAL},#{namef,jdbcType=VARCHAR},
-        #{namel,jdbcType=VARCHAR}, #{namepinf,jdbcType=VARCHAR}, #{namepinl,jdbcType=VARCHAR},#{gender,jdbcType=DECIMAL},#{nation,jdbcType=VARCHAR},
+        #{namel,jdbcType=VARCHAR}, #{namepinf,jdbcType=VARCHAR}, #{namepinl,jdbcType=VARCHAR},#{gender,jdbcType=VARCHAR},#{nation,jdbcType=VARCHAR},
         #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, now(),
         now(), #{isValid,jdbcType=DECIMAL}, #{idType,jdbcType=VARCHAR},
         #{idNo,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR},

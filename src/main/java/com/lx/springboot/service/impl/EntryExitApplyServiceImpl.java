@@ -40,64 +40,10 @@ public class EntryExitApplyServiceImpl extends ServiceImpl<EntryExitApplyMapper,
         baseMapper.addEntryExitApply(entryExitApply);
         int id=entryExitApply.getId();
         //创建办件流转信息
-        addFlowState(entryExitApply);
-        //更新会员信息
-        updateCustomer(entryExitApply);
+        flowStateService.insertFlowState(entryExitApply);
+        //增加更新会员信息
+        customerService.addOrupdateCustomer(entryExitApply);
         return id;
-    }
-
-    public int updateCustomer(EntryExitApply entryExitApply){
-        Map<String,String> param=new HashMap<String,String>();
-        param.put("alipayId",entryExitApply.getAlipayId());
-        List<CustomerVo> customerList= customerService.getCustomerByParams(param);
-        if(CollectionUtils.isNotEmpty(customerList)){
-            CustomerVo customerVo=new CustomerVo();
-            customerVo.setCustomerName(entryExitApply.getNamef()+entryExitApply.getNamel());
-            String namePinyin=entryExitApply.getNamepinf()+" "+entryExitApply.getNamepinl();
-            if(StringUtils.isNotEmpty(namePinyin)){
-                customerVo.setNamePinyin(namePinyin.toUpperCase());
-            }
-            customerVo.setContactName(entryExitApply.getContactName());
-            customerVo.setContactPhone(entryExitApply.getContactPhone());
-            customerVo.setMailAddress(entryExitApply.getConsigneeAdress());
-            customerVo.setAlipayId(entryExitApply.getAlipayId());
-            return customerService.updateCustomer(customerVo);
-        }else{
-            String sseionId = UUID.randomUUID().toString();
-            CustomerVo customer=new CustomerVo();
-            customer.setAlipayId(entryExitApply.getAlipayId());
-            customer.setCzSessionId(sseionId);
-            customer.setStatus("1");
-            customer.setCustomerName(entryExitApply.getNamef()+entryExitApply.getNamel());
-            String namePinyin=entryExitApply.getNamepinf()+" "+entryExitApply.getNamepinl();
-            if(StringUtils.isNotEmpty(namePinyin)){
-                customer.setNamePinyin(namePinyin.toUpperCase());
-            }
-            customer.setContactName(entryExitApply.getContactName());
-            customer.setContactPhone(entryExitApply.getContactPhone());
-            customer.setMailAddress(entryExitApply.getConsigneeAdress());
-            customerService.addCustomer(customer);
-        }
-        return 1;
-    }
-
-    public void addFlowState(EntryExitApply entryExitApply){
-        int i=1;
-        for (FlowStateEnum value : FlowStateEnum.values()) {
-            FlowState flowState=new FlowState();
-            flowState.setApplyId(entryExitApply.getId());
-            flowState.setAlipayId(entryExitApply.getAlipayId());
-            flowState.setTitle(ApplyTypeEnum.getDescByType(entryExitApply.getIdType()));
-            flowState.setFlowStateDesc(value.getDesc());
-            flowState.setFlowState(i);
-            if("submitted".equals(value.getModelType())){
-                flowState.setIsValid(1);
-            }else{
-                flowState.setIsValid(0);
-            }
-            i++;
-            flowStateService.addFlowState(flowState);
-        }
     }
 
     @Override

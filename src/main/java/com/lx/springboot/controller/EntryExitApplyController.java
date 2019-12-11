@@ -43,6 +43,7 @@ public class EntryExitApplyController {
             json.put("success",false);
             log.error("UserInfoController addUserInfo is error",e);
         }
+        log.info("EntryExitApplyController.addEntryExitApply is success entryExitApply:"+JSONObject.toJSONString(entryExitApply));
         json.put("success",true);
         return json.toJSONString();
     }

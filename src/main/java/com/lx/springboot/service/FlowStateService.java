@@ -1,6 +1,7 @@
 package com.lx.springboot.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lx.springboot.entity.EntryExitApply;
 import com.lx.springboot.entity.FlowState;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public interface FlowStateService extends IService<FlowState> {
 
     int addFlowState(FlowState flowState);
 
+    int insertFlowState(EntryExitApply entryExitApply);
 
     List<FlowState> getFlowStateByParam(FlowState flowState);
 
@@ -22,4 +24,5 @@ public interface FlowStateService extends IService<FlowState> {
     int  queryMaxFlowState(Integer applyId);
 
     int deleteById(Long id);
+
 }

@@ -156,7 +156,6 @@ public class AdvisoryNoticeController {
             }
             //用PageInfo对结果进行包装
             PageInfo pageInfo = new PageInfo(page.getResult());
-            log.info("AdvisoryNoticeController.getAdvisoryNoticeList start pageInfo:"+JSONObject.toJSONString(pageInfo));
             return new TableUtils(pageInfo.getTotal(), AdvisoryNoticeVoList);
         }catch(Exception e){
             log.error("AdvisoryNoticeController.addAdvisoryNotice is error advisoryNoticeQuery:"+JSONObject.toJSONString(advisoryNoticeQuery),e);

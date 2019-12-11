@@ -27,7 +27,7 @@ public class EntryExitApply implements Serializable {
 
     private String   namepinl  ;//'拼音名',
 
-    private Integer   gender ;// '1男，0女',
+    private String   gender ;// '男女',
 
     private String   nation  ;// '民族',
 
@@ -99,11 +99,11 @@ public class EntryExitApply implements Serializable {
         this.namepinl = namepinl;
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
