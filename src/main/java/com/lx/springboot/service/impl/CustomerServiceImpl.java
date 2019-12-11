@@ -35,8 +35,7 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     public int updateCustomer(CustomerVo customerVo) {
         Customer customer=new Customer();
         EnhanceBeanUtils.copyProperties(customerVo,customer);
-        baseMapper.updateCustomer(customer);
-        return customer.getId();
+        return baseMapper.updateCustomer(customer);
     }
 
     @Override
