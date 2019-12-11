@@ -5,7 +5,7 @@ package com.lx.springboot.Enums;
  * @Date 2019/11/25
  */
 public enum ApplyTypeEnum {
-    PASSPORT("passport", "护照申请"),
+    PASSPORT("passport", "护照"),
     TAIWANPASS("taiwanPass", "往来台湾通行证"),
     GANGAOPASS("gangaoPass", "往来港澳通行证"),
 
