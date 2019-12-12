@@ -1,5 +1,7 @@
 package com.lx.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -29,8 +31,10 @@ public class FlowState implements Serializable {
 
     private String alipayId;//支付宝id
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private Integer   isValid ;// '是否有效1：有效 0：无效',

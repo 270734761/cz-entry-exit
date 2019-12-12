@@ -1,5 +1,6 @@
 package com.lx.springboot.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -31,8 +32,10 @@ public class FlowStateVo implements Serializable {
 
     private String alipayId;//支付宝id
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private String updateTimeStr;
