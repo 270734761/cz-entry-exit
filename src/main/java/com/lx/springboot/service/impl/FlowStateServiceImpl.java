@@ -35,7 +35,7 @@ public class FlowStateServiceImpl extends ServiceImpl<FlowStateMapper, FlowState
                 FlowState flowState=new FlowState();
                 flowState.setApplyId(entryExitApply.getId());
                 flowState.setAlipayId(entryExitApply.getAlipayId());
-                flowState.setTitle(ApplyTypeEnum.getDescByType(entryExitApply.getIdType()));
+                flowState.setTitle(entryExitApply.getIdType());
                 flowState.setFlowStateDesc(value.getDesc());
                 flowState.setFlowState(i);
                 if("submitted".equals(value.getModelType())){
