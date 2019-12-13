@@ -1,5 +1,6 @@
 package com.lx.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -27,8 +28,10 @@ public class AdvisoryNotice implements Serializable {
 
     private String   type ;// 类型
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private Integer   isValid ;// '是否有效1：有效 0：无效',

@@ -32,8 +32,10 @@ public class FlowStateVo implements Serializable {
 
     private String alipayId;//支付宝id
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private String updateTimeStr;
