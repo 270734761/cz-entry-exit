@@ -20,24 +20,26 @@
         <result column="contact_phone" property="contactPhone" />
         <result column="mail_address" property="mailAddress" />
         <result column="head_pic" property="headPic" />
+        <result column="id_card_validity" property="idCardValidity" />
+        <result column="mail_address_note" property="mailAddressNote" />
     </resultMap>
 
     <insert id="addCustomer" parameterType="com.lx.springboot.entity.Customer" useGeneratedKeys="true" keyProperty="id">
         insert into customer (
-         id,customer_id,customer_name, password, phone_number, email,status, create_date, updated_date, alipay_id, cz_session_id
+         id,customer_id,customer_name, password, phone_number, email,status, create_date, updated_date, alipay_id, cz_session_id,id_card_validity,mail_address_note
         )
         values
         (
         #{id,jdbcType=DECIMAL},#{customerId,jdbcType=DECIMAL},#{customerName,jdbcType=VARCHAR},
         #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},#{status,jdbcType=DECIMAL}, now(),
          now(), #{alipayId,jdbcType=VARCHAR},
-        #{czSessionId,jdbcType=VARCHAR}
+        #{czSessionId,jdbcType=VARCHAR},#{idCardValidity,jdbcType=VARCHAR},#{mailAddressNote,jdbcType=VARCHAR}
         )
     </insert>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, customer_id, alipayId,czSessionId,customer_name, password, phone_number, email, status, create_date, updated_date
+        id, customer_id, alipayId,czSessionId,customer_name, password, phone_number, email, status,id_card_validity,mail_address_note, create_date, updated_date
     </sql>
 
     <select id="selectById" resultType="Customer">
@@ -88,6 +90,12 @@
             </if>
             <if test="headPic != null and headPic !=''">
                 `head_pic` = #{headPic},
+            </if>
+            <if test="idCardValidity != null and idCardValidity !=''">
+                `id_card_validity` = #{idCardValidity},
+            </if>
+            <if test="mailAddressNote != null and mailAddressNote !=''">
+                `mail_address_note` = #{mailAddressNote},
             </if>
             updated_date=now()
         </set>

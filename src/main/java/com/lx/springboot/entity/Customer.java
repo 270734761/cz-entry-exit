@@ -81,5 +81,9 @@ public class Customer implements Serializable {
 
     private String headPic;//头像
 
+    private String idCardValidity;//身份证有效期
+
+    private String mailAddressNote;//邮寄地址备注
+
 
 }

@@ -80,6 +80,10 @@ public class CustomerVo implements Serializable {
 
     private String headPic;//头像
 
+    private String idCardValidity;//身份证有效期
+
+    private String mailAddressNote;//邮寄地址备注
+
     public Integer getId() {
         return id;
     }
@@ -208,6 +212,22 @@ public class CustomerVo implements Serializable {
         this.headPic = headPic;
     }
 
+    public String getIdCardValidity() {
+        return idCardValidity;
+    }
+
+    public void setIdCardValidity(String idCardValidity) {
+        this.idCardValidity = idCardValidity;
+    }
+
+    public String getMailAddressNote() {
+        return mailAddressNote;
+    }
+
+    public void setMailAddressNote(String mailAddressNote) {
+        this.mailAddressNote = mailAddressNote;
+    }
+
     @Override
     public String toString() {
         return "CustomerVo{" +
@@ -227,6 +247,8 @@ public class CustomerVo implements Serializable {
                 ", contactPhone='" + contactPhone + '\'' +
                 ", mailAddress='" + mailAddress + '\'' +
                 ", headPic='" + headPic + '\'' +
+                ", idCardValidity='" + idCardValidity + '\'' +
+                ", mailAddressNote='" + mailAddressNote + '\'' +
                 '}';
     }
 }
