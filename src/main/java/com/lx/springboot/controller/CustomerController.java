@@ -51,6 +51,7 @@ public class CustomerController {
         CustomerVo customerVo=new CustomerVo();
         try{
             log.info("CustomerController.getCustomerByParam start alipayId:"+ alipayId);
+            
             Map<String,String> param=new HashMap<String,String>();
             param.put("alipayId",alipayId);
             List<CustomerVo> customerVoList = customerService.getCustomerByParams(param);
