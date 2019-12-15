@@ -58,7 +58,7 @@
     <select id="getAdvisoryNoticeByParam" resultMap="BaseResultMap" parameterType="advisoryNotice">
         select
         id,title
-        from advisory_notice1 where is_valid=1
+        from advisory_notice where is_valid=1
         <if test="noticeType != null" >
             AND notice_type = #{noticeType,jdbcType=VARCHAR}
         </if>
