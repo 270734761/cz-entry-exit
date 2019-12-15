@@ -26,7 +26,7 @@ public class AdvisoryNotice implements Serializable {
 
     private String detailUrl;// 详细内容url
 
-    private String   type ;// 类型
+    private String   noticeType ;// 类型
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
@@ -106,12 +106,12 @@ public class AdvisoryNotice implements Serializable {
         this.end = end;
     }
 
-    public String getType() {
-        return type;
+    public String getNoticeType() {
+        return noticeType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setNoticeType(String noticeType) {
+        this.noticeType = noticeType;
     }
 
     public Integer getTopSort() {
@@ -137,7 +137,7 @@ public class AdvisoryNotice implements Serializable {
                 ", title='" + title + '\'' +
                 ", contentDetail='" + contentDetail + '\'' +
                 ", detailUrl='" + detailUrl + '\'' +
-                ", type='" + type + '\'' +
+                ", noticeType='" + noticeType + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", isValid=" + isValid +

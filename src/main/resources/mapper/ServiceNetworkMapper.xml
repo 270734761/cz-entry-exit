@@ -3,7 +3,7 @@
     <mapper namespace="com.lx.springboot.mapper.ServiceNetworkMapper">
 
         <resultMap id="BaseResultMap" type="com.lx.springboot.entity.ServiceNetwork">
-            <id column="id" jdbcType="BIGINT" property="id" />
+            <id column="id" jdbcType="DECIMAL" property="id" />
             <result column="network_name" jdbcType="VARCHAR" property="networkName" />
             <result column="network_address" jdbcType="VARCHAR" property="networkAddress" />
             <result column="phone" jdbcType="VARCHAR" property="phone" />

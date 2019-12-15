@@ -12,6 +12,7 @@ import com.alipay.api.internal.util.AlipayEncrypt;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.lx.springboot.entity.EntryExitApply;
 import com.lx.springboot.request.AlipayAppletAuthRequest;
 import com.lx.springboot.response.AlipayAppletAuthResponse;
 import com.lx.springboot.service.CustomerService;
@@ -79,19 +80,9 @@ public class AlipayAppletController {
             EnhanceBeanUtils.copyProperties(response, alipayAppletAuthResponse);
             alipayAppletAuthResponse.setSuccess(true);
             String userId=alipayAppletAuthResponse.getUserId();
-            Map<String,String> param=new HashMap<String,String>();
-            param.put("alipayId",userId);
-            List<CustomerVo> customerList= customerService.getCustomerByParams(param);
-            if(CollectionUtils.isEmpty(customerList)){
-                String sseionId = UUID.randomUUID().toString();
-                CustomerVo customer=new CustomerVo();
-                customer.setAlipayId(userId);
-                customer.setCzSessionId(sseionId);
-                customer.setStatus("1");
-                customerService.addCustomer(customer);
-            }else{
-                log.info("AlipayAppletController auth Customer is create userId:" + userId);
-            }
+            EntryExitApply entryExitApply=new EntryExitApply();
+            entryExitApply.setAlipayId(alipayAppletAuthResponse.getUserId());
+            customerService.addOrupdateCustomer(entryExitApply);
         } else {
             alipayAppletAuthResponse.setSuccess(false);
             log.info("AlipayAppletController auth is fail alipayAppletAuthRequest:" + JSONObject.toJSONString(alipayAppletAuthRequest));

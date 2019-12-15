@@ -72,7 +72,7 @@ public class AdvisoryNoticeController {
             AdvisoryNotice advisoryNotice =new AdvisoryNotice();
             advisoryNotice.setStart(0);
             advisoryNotice.setEnd(2);
-            advisoryNotice.setType(TypeEnum.NOTICE.getModelType());
+            advisoryNotice.setNoticeType(TypeEnum.NOTICE.getModelType());
             List<AdvisoryNotice> advisoryNoticeList = advisoryNoticeService.getAdvisoryNoticeByParam(advisoryNotice);
             if(CollectionUtils.isNotEmpty(advisoryNoticeList)){
                 for(AdvisoryNotice notice:advisoryNoticeList){
@@ -125,7 +125,7 @@ public class AdvisoryNoticeController {
             log.info("AdvisoryNoticeController.getReadingProtocol start");
             advisoryNotice.setStart(0);
             advisoryNotice.setEnd(2);
-            advisoryNotice.setType(TypeEnum.READINGPROTOCAL.getModelType());
+            advisoryNotice.setNoticeType(TypeEnum.READINGPROTOCAL.getModelType());
             readingProtocal = advisoryNoticeService.getReadingProtocalByParam(advisoryNotice);
             json.put("readingProtocal",readingProtocal);
         }catch(Exception e){
@@ -142,7 +142,7 @@ public class AdvisoryNoticeController {
         try{
             log.info("AdvisoryNoticeController.getAdvisoryNoticeList start advisoryNoticeQuery:"+JSONObject.toJSONString(advisoryNoticeQuery));
             AdvisoryNotice advisoryNotice=new AdvisoryNotice();
-            advisoryNotice.setType(advisoryNoticeQuery.getType());
+            advisoryNotice.setNoticeType(advisoryNoticeQuery.getType());
             //获取第1页，10条内容，默认查询总数count
             Page page = PageHelper.startPage(advisoryNoticeQuery.getPage(), advisoryNoticeQuery.getLimit());
             //紧跟着的第一个select方法会被分页

@@ -26,14 +26,16 @@
 
     <insert id="addCustomer" parameterType="com.lx.springboot.entity.Customer" useGeneratedKeys="true" keyProperty="id">
         insert into customer (
-         id,customer_id,customer_name, password, phone_number, email,status, create_date, updated_date, alipay_id, cz_session_id,id_card_validity,mail_address_note
+         id,customer_id,customer_name, password, phone_number, email,status, create_date, updated_date, alipay_id, cz_session_id,id_card_validity,mail_address_note,name_pinyin,contact_name,
+         contact_phone,mail_address
+
         )
         values
         (
         #{id,jdbcType=DECIMAL},#{customerId,jdbcType=DECIMAL},#{customerName,jdbcType=VARCHAR},
         #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},#{status,jdbcType=DECIMAL}, now(),
-         now(), #{alipayId,jdbcType=VARCHAR},
-        #{czSessionId,jdbcType=VARCHAR},#{idCardValidity,jdbcType=VARCHAR},#{mailAddressNote,jdbcType=VARCHAR}
+         now(), #{alipayId,jdbcType=VARCHAR},#{czSessionId,jdbcType=VARCHAR},#{idCardValidity,jdbcType=VARCHAR},#{mailAddressNote,jdbcType=VARCHAR},
+         #{namePinyin,jdbcType=VARCHAR},#{contactName,jdbcType=VARCHAR},#{contactPhone,jdbcType=VARCHAR},#{mailAddress,jdbcType=VARCHAR}
         )
     </insert>
 

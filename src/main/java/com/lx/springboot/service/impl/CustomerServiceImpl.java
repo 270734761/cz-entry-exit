@@ -73,6 +73,7 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
             param.put("alipayId",entryExitApply.getAlipayId());
             List<Customer> customerList= baseMapper.getCustomerByParams(param);
             if(CollectionUtils.isNotEmpty(customerList)){
+                log.info("CustomerServiceImpl.addOrupdateCustomer update entryExitApply:"+ JSONObject.toJSONString(entryExitApply));
                 Customer customer=new Customer();
                 customer.setCustomerName(entryExitApply.getNamef()+entryExitApply.getNamel());
                 String namePinyin=entryExitApply.getNamepinf()+" "+entryExitApply.getNamepinl();
@@ -85,6 +86,7 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
                 customer.setAlipayId(entryExitApply.getAlipayId());
                 return baseMapper.updateCustomer(customer);
             }else{
+                log.info("CustomerServiceImpl.addOrupdateCustomer add entryExitApply:"+ JSONObject.toJSONString(entryExitApply));
                 String sseionId = UUID.randomUUID().toString();
                 Customer customer=new Customer();
                 customer.setAlipayId(entryExitApply.getAlipayId());
@@ -98,6 +100,7 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
                 customer.setContactName(entryExitApply.getContactName());
                 customer.setContactPhone(entryExitApply.getContactPhone());
                 customer.setMailAddress(entryExitApply.getConsigneeAdress());
+                customer.setMailAddressNote("邮寄地址使用您的淘宝地址，为保证数据一致性，请前往淘宝网修改");
                 baseMapper.addCustomer(customer);
             }
         }catch(Exception e){

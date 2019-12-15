@@ -3,11 +3,12 @@
 <mapper namespace="com.lx.springboot.mapper.AdvisoryNoticeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="advisoryNotice">
+    <resultMap id="BaseResultMap" type="com.lx.springboot.entity.AdvisoryNotice">
         <id column="id" property="id" jdbcType="DECIMAL"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="content_detail" property="contentDetail" jdbcType="VARCHAR"/>
         <result column="detail_url" property="detailUrl" jdbcType="VARCHAR"/>
+        <result column="notice_type" property="noticeType" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="is_valid" property="isValid" jdbcType="DECIMAL"/>
@@ -16,19 +17,19 @@
 
     <insert id="addAdvisoryNotice" parameterType="com.lx.springboot.entity.AdvisoryNotice" useGeneratedKeys="true" keyProperty="id">
         insert into advisory_notice (
-         id,title,content_detail,detail_url,type, create_time,update_time,is_valid,top_sort
+         id,title,content_detail,detail_url,notice_type, create_time,update_time,is_valid,top_sort
         )
         values
         (
         #{id,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR},
-        #{contentDetail,jdbcType=VARCHAR},#{detailUrl,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},now(),
+        #{contentDetail,jdbcType=VARCHAR},#{detailUrl,jdbcType=VARCHAR},#{noticeType,jdbcType=VARCHAR},now(),
         now(), #{isValid,jdbcType=DECIMAL}, #{topSort,jdbcType=DECIMAL}
         )
     </insert>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,title,content_detail,detail_url,type, create_time,update_time,is_valid,top_sort
+        id,title,content_detail,detail_url,notice_type, create_time,update_time,is_valid,top_sort
     </sql>
 
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -48,8 +49,8 @@
         select
         <include refid="Base_Column_List"/>
         from advisory_notice where is_valid=1
-        <if test="type != null" >
-            AND type = #{type,jdbcType=VARCHAR}
+        <if test="noticeType != null" >
+            AND notice_type = #{noticeType,jdbcType=VARCHAR}
         </if>
         order by top_sort asc,create_time desc
     </select>
@@ -57,9 +58,9 @@
     <select id="getAdvisoryNoticeByParam" resultMap="BaseResultMap" parameterType="advisoryNotice">
         select
         id,title
-        from advisory_notice where is_valid=1
-        <if test="type != null" >
-            AND type = #{type,jdbcType=VARCHAR}
+        from advisory_notice1 where is_valid=1
+        <if test="noticeType != null" >
+            AND notice_type = #{noticeType,jdbcType=VARCHAR}
         </if>
         order by top_sort asc,create_time desc
         <if test="start != null and end != null" >
@@ -72,8 +73,8 @@
         select
         detail_url
         from advisory_notice where is_valid=1
-        <if test="type != null" >
-            AND type = #{type,jdbcType=VARCHAR}
+        <if test="noticeType != null" >
+            AND notice_type = #{noticeType,jdbcType=VARCHAR}
         </if>
         order by create_time desc
         <if test="start != null and end != null" >
