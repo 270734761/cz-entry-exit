@@ -11,8 +11,11 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipayEncrypt;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipaySystemOauthTokenRequest;
+import com.alipay.api.request.ZolozIdentificationUserWebQueryRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.alipay.api.response.ZolozIdentificationUserWebQueryResponse;
 import com.lx.springboot.entity.EntryExitApply;
+import com.lx.springboot.query.ZolozIdentificationQuery;
 import com.lx.springboot.request.AlipayAppletAuthRequest;
 import com.lx.springboot.response.AlipayAppletAuthResponse;
 import com.lx.springboot.service.CustomerService;
@@ -31,7 +34,7 @@ import java.util.UUID;
 
 /**
  * <p>
- * 申请人 前端控制器
+ * 小程序 前端控制器
  * </p>
  */
 @Slf4j
@@ -153,5 +156,38 @@ public class AlipayAppletController {
         return "";
     }
 
+
+    //人脸认证采集
+    @RequestMapping(value = {"/zolozIdentification"})
+    @ResponseBody
+    public ZolozIdentificationUserWebQueryResponse zolozIdentification(@RequestBody ZolozIdentificationQuery zolozIdentificationQuery) {
+        log.info("AlipayAppletController zolozIdentification zolozIdentificationQuery:" + JSONObject.toJSONString(zolozIdentificationQuery));
+        ZolozIdentificationUserWebQueryResponse response=new ZolozIdentificationUserWebQueryResponse();
+        try {
+            AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do","app_id","your private_key","json","GBK","alipay_public_key","RSA2");
+            ZolozIdentificationUserWebQueryRequest request = new ZolozIdentificationUserWebQueryRequest();
+            JSONObject json=new JSONObject();
+            json.put("biz_id",zolozIdentificationQuery.getBizId());
+            json.put("zim_id",zolozIdentificationQuery.getZimId());
+            json.put("extern_param",zolozIdentificationQuery.getExternParam());
+            request.setBizContent(json.toJSONString());
+
+//            request.setBizContent("{" +
+//                    "\"biz_id\":\"5456897876546767654\"," +
+//                    "\"zim_id\":\"731be7f204a962b0486a9b64ea3050ae\"," +
+//                    "\"extern_param\":\"{}\"" +
+//                    "  }");
+             response = alipayClient.execute(request);
+            if(response.isSuccess()){
+                log.info("AlipayAppletController zolozIdentification is success response:" + JSONObject.toJSONString(response));
+            } else {
+                log.info("AlipayAppletController zolozIdentification is fail response:" + JSONObject.toJSONString(response));
+            }
+        } catch (Exception e) {
+            log.error("AlipayAppletController zolozIdentification is error zolozIdentificationQuery:" + JSONObject.toJSONString(zolozIdentificationQuery), e);
+        }
+
+        return response;
+    }
 
 }
