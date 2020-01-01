@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
     <contextName>logback</contextName>
-    <!--<property name="log.path" value="E:\\log\\cz" />-->
+<!--    <property name="log.path" value="E:\\log\\cz" />-->
 
     <property name="log.path" value="/home/admin/logs" />
 
@@ -18,9 +18,9 @@
 
     <!--输出到文件-->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/logback.log</file>
+<!--        <file>${log.path}/logback.log</file>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM,aux}/logback.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>365</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
